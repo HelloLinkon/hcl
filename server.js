@@ -195,10 +195,10 @@ router.get("/logout", function(req, res){
 
 
 // test route
-router1.get('/', function(req, res) {
+router.get('/', function(req, res) {
     // res.sendFile(path.join(__dirname + '/templates/login.html'));
-    // res.render(path.join(__dirname + '/views/login.ejs'));
-    res.send("hello");
+    res.render(path.join(__dirname + '/views/login.ejs'));
+    // res.send("hello");
 });
 //route to handle user registration
 router.post('/register',login.register);
