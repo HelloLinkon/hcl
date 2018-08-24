@@ -9,7 +9,7 @@ var login = require('./routes/loginroutes');
 var connection = mysql.createConnection({
   host     : 'localhost',
   user     : 'root',
-  password : 'HLC1024',
+  password : '',
   database : 'highcountrylife'
 });
 
@@ -292,6 +292,12 @@ router.get("/logout", function(req, res){
 router.get('/', function(req, res) {
     // res.sendFile(path.join(__dirname + '/templates/login.html'));
     res.render(path.join(__dirname + '/views/login.ejs'));
+    // res.send("hello");
+});
+
+router1.get('/', function(req, res) {
+    res.render(path.join(__dirname + '/views/landing.ejs'));
+    // res.render(path.join(__dirname + '/views/login.ejs'));
     // res.send("hello");
 });
 //route to handle user registration
