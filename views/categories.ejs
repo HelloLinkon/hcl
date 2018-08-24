@@ -38,18 +38,31 @@
   </div><!-- /.container-fluid -->
 </nav>
 
-
 <div class="container">
   <div class="row">
     <div class="col-sm-12">
-      <h1>Dashboard</h1>
-      <a href="/admin/county">All County</a>
-      <a href="/admin/city">All City</a>
-      <a href="/admin/business">All business</a>
-      <a href="/admin/categories">All Category</a>
+      <h1>Category</h1>
+      <a href="/admin/Category/new">Add Category</a>
+      <table id="table" class="table" style="table-layout: fixed;">  
+              <thead>  
+                  <tr>  
+                      <th>ID</th>  
+                      <th>Name</th> 
+                  </tr>  
+              </thead>  
+               <tbody>  
+               <% obj.forEach(function (user) { %>
+                  <tr>  
+                      <td><%= user.id %></td>  
+                      <td><%= user.category_name %></td>
+                  </tr>                                   
+               <% }) %>
+               </tbody>
+      </table>
     </div>
   </div>
 </div>
+
 
 
 

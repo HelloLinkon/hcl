@@ -122,6 +122,30 @@ router.get('/business', function(req, res){
 	}
 });
 
+router.get('/categories', function(req, res){
+	sess = req.session;
+
+	if(sess.email)
+	{
+		connection.query('SELECT * FROM categories', function (error, results, fields) {
+	    if (error) {
+	      console.log("error ocurred",error);
+	      res.send({
+	        "code":400,
+	        "failed":"error ocurred"
+	      })
+	    }else{
+	      console.log('The solution is: ', results);
+	      res.render(path.join(__dirname + '/views/categories.ejs'), {obj: results});
+	    }
+	    });
+	}
+	else
+	{
+		res.redirect('/admin');
+	}
+});
+
 
 router.get('/county/new', function(req, res){
 	sess = req.session;
@@ -143,6 +167,19 @@ router.get('/city/new', function(req, res){
 	if(sess.email)
 	{
 		res.render(path.join(__dirname + '/views/add_city.ejs'));
+	}
+	else
+	{
+		res.redirect('/admin');
+	}
+});
+
+router.get('/category/new', function(req, res){
+	sess = req.session;
+
+	if(sess.email)
+	{
+		res.render(path.join(__dirname + '/views/add_category.ejs'));
 	}
 	else
 	{
@@ -206,6 +243,7 @@ router.post('/login',login.login);
 router.post('/county',login.county);
 router.post('/city',login.city);
 router.post('/business',login.business);
+router.post('/category',login.category);
 
 router.get('/getcounty', login.getcounty);
 router.get('/getcity', login.getcity);
@@ -214,6 +252,11 @@ app.use('/admin', router);
 app.use('/', router1);
 app.listen(5000);
 
+
+// CREATE TABLE categories (
+// id INT(11) AUTO_INCREMENT PRIMARY KEY,
+// category_name VARCHAR(30) NOT NULL
+// )
 
 
 

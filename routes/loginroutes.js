@@ -3,7 +3,7 @@ var path = require('path');
 var connection = mysql.createConnection({
   host     : 'localhost',
   user     : 'root',
-  password : '',
+  password : 'HLC1024',
   database : 'highcountrylife'
 });
 connection.connect(function(err){
@@ -161,6 +161,27 @@ exports.city = function(req,res){
   });
 }
 
+exports.category = function(req,res){
+  console.log("req",req.body);
+  
+  var category={
+    "category_name":req.body.category_name,
+    
+  }
+  connection.query('INSERT INTO categories SET ?',category, function (error, results, fields) {
+  if (error) {
+    console.log("error ocurred",error);
+    res.send({
+      "code":400,
+      "failed":"error ocurred"
+    })
+  }else{
+    console.log('The solution is: ', results);
+    res.redirect('/admin/categories');
+  }
+  });
+}
+
 
 exports.business = function(req,res){
   console.log("req",req.body);
@@ -212,6 +233,10 @@ exports.business = function(req,res){
   
 
 }
+
+
+
+
 
 
 

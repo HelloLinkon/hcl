@@ -30,7 +30,7 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       
       <ul class="nav navbar-nav navbar-right">
-      	<li><a href="#"><%= sess.email %></a><li>
+        <li><a href="#"><%= sess.email %></a><li>
         <li><a href="/admin/logout">Logout</a></li>
         
       </ul>
@@ -38,15 +38,19 @@
   </div><!-- /.container-fluid -->
 </nav>
 
-
 <div class="container">
   <div class="row">
     <div class="col-sm-12">
-      <h1>Dashboard</h1>
-      <a href="/admin/county">All County</a>
-      <a href="/admin/city">All City</a>
-      <a href="/admin/business">All business</a>
-      <a href="/admin/categories">All Category</a>
+      <h1>Add New County</h1>
+
+      <form method="POST" action="/admin/category">
+        <div class="form-group">
+          <label>Category Name:</label>
+          <input type="text" class="form-control" name="category_name"/>
+        
+        </div>
+        <input type="submit" name="">
+      </form>
     </div>
   </div>
 </div>
@@ -54,10 +58,9 @@
 
 
 
+
+
+
+
 </body>
 </html>
-
-
-
-
-
