@@ -49,7 +49,10 @@
                       <th>Title</th>  
                       <th>image</th> 
                       <th>video</th>  
-                      <th>Details</th>  
+                      <th>Details</th>
+                      <th>Category</th>  
+                      <th>priority</th>  
+                      <th>action</th> 
                   </tr>  
               </thead>  
                <tbody>  
@@ -64,6 +67,12 @@
                         
                       </td>  
                       <td><%= user.details %></td>
+                      <td><%= user.category %></td>
+                      <td><%= user.priority %></td>
+                      <td>
+                        <a href="/admin/edit/<%=user.id%>" class="btn btn-primary">edit</a>
+                        <a href="/admin/delete/<%=user.id%>?_method=DELETE" class="btn btn-danger">delete</a>
+                      </td>
                   </tr>                                   
                <% }) %>
                </tbody>

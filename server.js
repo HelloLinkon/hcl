@@ -103,7 +103,7 @@ router.get('/business', function(req, res){
 
 	if(sess.email)
 	{
-		connection.query('SELECT * FROM business', function (error, results, fields) {
+		connection.query('SELECT * FROM business order by priority', function (error, results, fields) {
 	    if (error) {
 	      console.log("error ocurred",error);
 	      res.send({
@@ -219,6 +219,63 @@ router.get('/business/:id', function(req, res){
 });
 
 
+router.get('/edit/:id', function(req, res){
+	var id = req.params.id;
+	connection.query('SELECT * FROM business WHERE id = ?',[id], function (error, results, fields) {
+	  if (error) {
+	    // console.log("error ocurred",error);
+	    res.send({
+	      "code":400,
+	      "failed":"error ocurred"
+	    })
+	  }else{
+	  	res.render(path.join(__dirname + '/views/edit_business.ejs'), 
+	  		{
+	  			id: results[0].id,
+				title: results[0].title,
+				video: results[0].video,
+				details: results[0].details,
+				category: results[0].category,
+				city: results[0].city_id,
+				priority: results[0].priority
+			});
+	  }
+
+	});
+});
+
+router.use( function( req, res, next ) {
+    // this middleware will call for each requested
+    // and we checked for the requested query properties
+    // if _method was existed
+    // then we know, clients need to call DELETE request instead
+    if ( req.query._method == 'DELETE' ) {
+        // change the original METHOD
+        // into DELETE method
+        req.method = 'DELETE';
+        // and set requested url to /user/12
+        req.url = req.path;
+    }       
+    next(); 
+});
+
+router.delete('/delete/:id', function(req, res){
+	var id = req.params.id;
+	connection.query('DELETE FROM business WHERE id = ?',[id], function (error, results, fields) {
+	  if (error) {
+	    // console.log("error ocurred",error);
+	    res.send({
+	      "code":400,
+	      "failed":"error ocurred"
+	    })
+	  }else{
+	  	res.redirect('/admin/business');
+	  }
+
+	});
+});
+
+
 
 router.get("/logout", function(req, res){
 	req.session.destroy(function(err) {
@@ -244,20 +301,17 @@ router.post('/county',login.county);
 router.post('/city',login.city);
 router.post('/business',login.business);
 router.post('/category',login.category);
+router.post('/edit/:id', login.edit_business);
+
+
 
 router.get('/getcounty', login.getcounty);
 router.get('/getcity', login.getcity);
+router.get('/getcategory', login.getcategory);
 
 app.use('/admin', router);
 app.use('/', router1);
 app.listen(5000);
-
-
-// CREATE TABLE categories (
-// id INT(11) AUTO_INCREMENT PRIMARY KEY,
-// category_name VARCHAR(30) NOT NULL
-// )
-
 
 
 

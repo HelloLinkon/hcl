@@ -139,6 +139,21 @@ exports.getcity = function(req,res){
   });
 }
 
+exports.getcategory = function(req,res){
+  connection.query('SELECT * FROM categories', function (error, results, fields) {
+      if (error) {
+        console.log("error ocurred",error);
+        res.send({
+          "code":400,
+          "failed":"error ocurred"
+        })
+      }else{
+        // console.log(results[0]);
+        res.json(results);
+      }
+  });
+}
+
 
 exports.city = function(req,res){
   console.log("req",req.body);
@@ -199,7 +214,9 @@ exports.business = function(req,res){
     "image": "/static/upload/"+img_name,
     "video":req.body.video,
     "details":req.body.details,
-    "city_id":req.body.city_id
+    "city_id":req.body.city_id,
+    "category":req.body.category,
+    "priority":req.body.priority
   }
 
   if(file.mimetype == "image/jpeg" || file.mimetype == "image/png" || file.mimetype == "image/gif" ){
@@ -210,6 +227,61 @@ exports.business = function(req,res){
                 return res.status(500).send(err);
 
               connection.query('INSERT INTO business SET ?',business, function (error, results, fields) {
+              if (error) {
+                console.log("error ocurred",error);
+                res.send({
+                  "code":400,
+                  "failed":"error ocurred"
+                })
+              }else{
+                console.log('The solution is: ', results);
+                res.redirect('/admin/business');
+              }
+              });
+       
+
+    });
+  } 
+  else {
+            message = "This format is not allowed , please upload file with '.png','.gif','.jpg'";
+            res.render('index.ejs',{message: message});
+  }
+
+  
+
+}
+
+
+exports.edit_business = function(req,res){
+  console.log("req",req.body);
+  console.log("param id " + req.params.id);
+  console.log(req.files);
+  
+  if (!req.files)
+    return res.status(400).send('No files were uploaded.');
+
+  var file = req.files.image;
+  var img_name=file.name;
+
+
+  var business={
+    "title":req.body.title,
+    "image": "/static/upload/"+img_name,
+    "video":req.body.video,
+    "details":req.body.details,
+    "city_id":req.body.city_id,
+    "category":req.body.category,
+    "priority":req.body.priority
+  }
+
+  if(file.mimetype == "image/jpeg" || file.mimetype == "image/png" || file.mimetype == "image/gif" ){
+                                 
+              file.mv('static/upload/'+file.name, function(err) {
+                             
+               if (err)
+                return res.status(500).send(err);
+
+              connection.query('UPDATE business SET ? WHERE id = ' + req.params.id, business, function (error, results, fields) {
               if (error) {
                 console.log("error ocurred",error);
                 res.send({
