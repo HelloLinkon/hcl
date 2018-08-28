@@ -9,7 +9,7 @@ var login = require('./routes/loginroutes');
 var connection = mysql.createConnection({
   host     : 'localhost',
   user     : 'root',
-  password : 'HLC1024',
+  password : '',
   database : 'highcountrylife'
 });
 
@@ -287,6 +287,31 @@ router.get("/logout", function(req, res){
 	});
 });
 
+
+
+router1.get('/category/:name', function(req, res){
+
+	var id = req.params.name;
+	connection.query('select * from categories, business where categories.category_name = ? and categories.id = business.category;',[id], function (error, results, fields) {
+	  if (error) {
+	    // console.log("error ocurred",error);
+	    res.send({
+	      "code":400,
+	      "failed":"error ocurred"
+	    })
+	  }else{
+	  	res.render(path.join(__dirname + '/views/category.ejs'), 
+	  		{
+	  			title : id,
+	  			info : results
+			});
+
+		 // res.send(results);
+	  }
+
+	});
+
+});
 
 // test route
 router.get('/', function(req, res) {
