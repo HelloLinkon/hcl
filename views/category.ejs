@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<meta charset="UTF-8">
 	<title>High Country Life</title>
 	<link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
 	<link href="/static/css/menufullpage.css" rel="stylesheet" type="text/css">
@@ -53,71 +54,28 @@
 <!-- end big header section -->
 
 <!-- intro text section -->
-<div class="text_section">
-	<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-</div>
+
 <!-- end of intro text section -->
 
 <!-- category section -->
-<div class="category_section">
-	<div class="container-fluid">
-		<div class="row">
-			<div class="col-sm-3">
 
-				<div class="category_box cat1">
-					<div class="overlay"></div>
-					<h1>“I COULDN'T BELIEVE MY EYES WHEN WE GOT TO THE TOP!”</h1>
-					<button class="btn_white">Waterfall Hike </button> 
-				</div>
-			</div>
-			<div class="col-sm-3">
-				<div class="category_box cat2">
-					<h1>“FRESH... A WONDERFUL CHANGE OF PACE!”</h1>
-					<button class="btn_white">Restaurant </button> 
-				</div>
-			</div>
-			<div class="col-sm-3">
-				<div class="category_box cat3">
-					<h1>“SOME OF THE BEST SHOWS HAVE BEEN HERE.”</h1>
-					<button class="btn_white">Music </button> 
-				</div>
-			</div>
-			<div class="col-sm-3">
-				<div class="category_box cat4">
-					<h1>“THE VIEW FROM MY ROOM WAS SPECTACULAR! ”</h1>
-					<button class="btn_white">Lodging </button> 
-				</div>
-			</div>
-		</div>
-		<div style="height: 10px;"></div>
-		<div class="row">
-			<div class="col-sm-3">
-				<div class="category_box cat5">
-					<h1>“I LOVE CENTERING MYSELF OUT IN NATURE.”</h1>
-					<button class="btn_white">Camping </button> 
-				</div>
-			</div>
-			<div class="col-sm-3">
-				<div class="category_box cat6">
-					<h1>“THERE WERE SO MANY CHOICES, I COULD BARELY DECIDE.”</h1>
-					<button class="btn_white">Craft Brew </button> 
-				</div>
-			</div>
-			<div class="col-sm-3">
-				<div class="category_box cat7">
-					<h1>“IT'S THE JOURNEY THAT'S THE FUN PART.”</h1>
-					<button class="btn_white">Hike </button> 
-				</div>
-			</div>
-			<div class="col-sm-3">
-				<div class="category_box cat8">
-					<h1>“THE BIRTHPLACE OF AMERICAN FLY FISHING.”</h1>
-					<button class="btn_white">Fishing </button> 
-				</div>
-			</div>
-		</div>
-	</div>
+<div class="container">
+	<% info.forEach(function (user) { %>
+         
+         <div class="row">
+         	<div class="col-sm-4">
+         		<img src="<%= user.image %>" style="width: 100%;">
+         	</div>
+         	<div class="col-sm-8">
+         		<h1><%= user.title %> </h1>
+         		<p><%= user.details %></p>
+         	</div>
+         </div>                                
+	<% }) %>
+
 </div>
+
+
 <!-- end of category section -->
 
 
