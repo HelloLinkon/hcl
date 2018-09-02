@@ -216,7 +216,11 @@ exports.business = function(req,res){
     "details":req.body.details,
     "city_id":req.body.city_id,
     "category":req.body.category,
-    "priority":req.body.priority
+    "priority":req.body.priority,
+    "website":req.body.website,
+    "phone":req.body.phone,
+    "address":req.body.address
+
   }
 
   if(file.mimetype == "image/jpeg" || file.mimetype == "image/png" || file.mimetype == "image/gif" ){
@@ -271,7 +275,10 @@ exports.edit_business = function(req,res){
     "details":req.body.details,
     "city_id":req.body.city_id,
     "category":req.body.category,
-    "priority":req.body.priority
+    "priority":req.body.priority,
+    "website":req.body.website,
+    "phone":req.body.phone,
+    "address":req.body.address
   }
 
   if(file.mimetype == "image/jpeg" || file.mimetype == "image/png" || file.mimetype == "image/gif" ){

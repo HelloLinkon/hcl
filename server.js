@@ -237,7 +237,10 @@ router.get('/edit/:id', function(req, res){
 				details: results[0].details,
 				category: results[0].category,
 				city: results[0].city_id,
-				priority: results[0].priority
+				priority: results[0].priority,
+				website: results[0].website,
+				phone: results[0].phone,
+				address: results[0].address
 			});
 	  }
 
@@ -346,8 +349,14 @@ app.listen(5000);
 
 
 
+// ALTER TABLE business
+// ADD website varchar(100); 
 
+// ALTER TABLE business
+// ADD phone varchar(100);
 
+// ALTER TABLE business
+// ADD address varchar(200);
 
 
 

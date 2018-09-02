@@ -62,15 +62,33 @@
 <div class="container">
 	<% info.forEach(function (user) { %>
          
-         <div class="row">
-         	<div class="col-sm-4">
-         		<img src="<%= user.image %>" style="width: 100%;">
-         	</div>
-         	<div class="col-sm-8">
-         		<h1><%= user.title %> </h1>
-         		<p><%= user.details %></p>
-         	</div>
-         </div>                                
+         <div class="buisness_item">
+         	<div class="row">
+	         	<div class="col-sm-4">
+	         		<img src="<%= user.image %>" style="width: 100%;">
+	         	</div>
+	         	<div class="col-sm-8">
+	         		<h1><%= user.title %> </h1>
+	         		
+	         		<address>
+	         			<%= user.address %>
+	         		</address>
+	         		<a href="http://<%= user.website %>" target="_blank"><%= user.website %></a>
+	         		<a href="tel:+1-303-499-7111"><%= user.phone %></a>
+
+	         		<p style="width: 90%;">
+	         			<% if(user.details.length < 320) {%>
+	         			<%= user.details%>
+	         			<% } else { %>
+	         			<%= user.details.substring(0,320) %>
+	         			<% } %>
+	         				
+	         		</p>
+
+	         		<a href="" class="btn btn-warning" style="width: 30%; margin-bottom: 20px;">Get Details</a>
+	         	</div>
+	         </div> 
+         </div>                               
 	<% }) %>
 
 </div>
@@ -199,7 +217,7 @@
 			  	console.log(data);
 			  	$("#menu ul").html = "";
 			  	data.forEach(function(item){
-			  		let li_element = "<li><a data-scroll href='/category/"+ item.id +"'>"+ item.category_name +"</a></li>";
+			  		let li_element = "<li><a href='/category/"+ item.category_name +"'>"+ item.category_name +"</a></li>";
 			  		$("#menu ul").append(li_element);
 			  	});
 			  },
