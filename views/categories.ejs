@@ -49,6 +49,7 @@
                       <th>ID</th>  
                       <th>Name</th> 
                       <th>Image</th> 
+                      <th>Action</th>
                   </tr>  
               </thead>  
                <tbody>  
@@ -57,6 +58,10 @@
                       <td><%= user.id %></td>  
                       <td><%= user.category_name %></td>
                       <td><%= user.cat_img %></td>
+                      <td>
+                        <a href="/admin/catedit/<%=user.id%>" class="btn btn-primary">edit</a>
+                        <a href="/admin/catdelete/<%=user.id%>?_method=DELETE" class="btn btn-danger">delete</a>
+                      </td>
                   </tr>                                   
                <% }) %>
                </tbody>

@@ -247,6 +247,29 @@ router.get('/edit/:id', function(req, res){
 	});
 });
 
+
+
+router.get('/catedit/:id', function(req, res){
+	var id = req.params.id;
+	connection.query('SELECT * FROM categories WHERE id = ?',[id], function (error, results, fields) {
+	  if (error) {
+	    // console.log("error ocurred",error);
+	    res.send({
+	      "code":400,
+	      "failed":"error ocurred"
+	    })
+	  }else{
+	  	res.render(path.join(__dirname + '/views/edit_category.ejs'), 
+	  		{
+	  			id: results[0].id,
+				category_name: results[0].category_name,
+				cat_img: results[0].cat_img
+			});
+	  }
+
+	});
+});
+
 router.use( function( req, res, next ) {
     // this middleware will call for each requested
     // and we checked for the requested query properties
@@ -279,6 +302,23 @@ router.delete('/delete/:id', function(req, res){
 });
 
 
+router.delete('/catdelete/:id', function(req, res){
+	var id = req.params.id;
+	connection.query('DELETE FROM categories WHERE id = ?',[id], function (error, results, fields) {
+	  if (error) {
+	    // console.log("error ocurred",error);
+	    res.send({
+	      "code":400,
+	      "failed":"error ocurred"
+	    })
+	  }else{
+	  	res.redirect('/admin/categories');
+	  }
+
+	});
+});
+
+
 
 router.get("/logout", function(req, res){
 	req.session.destroy(function(err) {
@@ -303,13 +343,15 @@ router1.get('/category/:name', function(req, res){
 	      "failed":"error ocurred"
 	    })
 	  }else{
+	  	console.log(results[0].cat_img);
 	  	res.render(path.join(__dirname + '/views/category.ejs'), 
 	  		{
 	  			title : id,
-	  			info : results
+	  			info : results,
+	  			background : results[0].cat_img
 			});
 
-		 // res.send(results);
+		 
 	  }
 
 	});
@@ -336,6 +378,7 @@ router.post('/city',login.city);
 router.post('/business',login.business);
 router.post('/category',login.category);
 router.post('/edit/:id', login.edit_business);
+router.post('/catedit/:id', login.edit_category);
 
 
 
