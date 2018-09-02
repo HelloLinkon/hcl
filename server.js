@@ -358,6 +358,9 @@ app.listen(5000);
 // ALTER TABLE business
 // ADD address varchar(200);
 
+ // ALTER TABLE categories
+ // ADD cat_img varchar(200);
+
 
 
 

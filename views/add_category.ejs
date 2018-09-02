@@ -43,12 +43,18 @@
     <div class="col-sm-12">
       <h1>Add New County</h1>
 
-      <form method="POST" action="/admin/category">
+      <form method="POST" action="/admin/category" enctype="multipart/form-data">
         <div class="form-group">
           <label>Category Name:</label>
           <input type="text" class="form-control" name="category_name"/>
         
         </div>
+        <div class="form-group">
+          <label for="exampleInputFile">Image</label>
+          <input type="file" id="exampleInputFile" name="cat_img" accept="">
+          <p class="help-block">Accept jpg, png only.</p>
+        </div>
+
         <input type="submit" name="">
       </form>
     </div>

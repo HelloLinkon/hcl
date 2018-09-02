@@ -178,23 +178,54 @@ exports.city = function(req,res){
 
 exports.category = function(req,res){
   console.log("req",req.body);
+  console.log(req.files);
+
+  if (!req.files)
+    return res.status(400).send('No files were uploaded.');
+
+  var file = req.files.cat_img;
+  var img_name=file.name;
+
+
   
   var category={
     "category_name":req.body.category_name,
+    "cat_img": "/static/upload/"+img_name
     
   }
-  connection.query('INSERT INTO categories SET ?',category, function (error, results, fields) {
-  if (error) {
-    console.log("error ocurred",error);
-    res.send({
-      "code":400,
-      "failed":"error ocurred"
-    })
-  }else{
-    console.log('The solution is: ', results);
-    res.redirect('/admin/categories');
+
+
+  if(file.mimetype == "image/jpeg" || file.mimetype == "image/png" || file.mimetype == "image/gif" ){
+                                 
+              file.mv('static/upload/'+file.name, function(err) {
+                             
+               if (err)
+                return res.status(500).send(err);
+
+              connection.query('INSERT INTO categories SET ?',category, function (error, results, fields) {
+              if (error) {
+                console.log("error ocurred",error);
+                res.send({
+                  "code":400,
+                  "failed":"error ocurred"
+                })
+              }else{
+                console.log('The solution is: ', results);
+                res.redirect('/admin/categories');
+              }
+              });
+              
+       
+
+    });
+  } 
+  else {
+            message = "This format is not allowed , please upload file with '.png','.gif','.jpg'";
+            res.render('index.ejs',{message: message});
   }
-  });
+
+
+  
 }
 
 
