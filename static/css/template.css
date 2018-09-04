@@ -238,6 +238,22 @@ img{
 	margin: 3px 0;
 }
 
+.business_box{
+	/*border: 2px solid red;*/
+	display: grid;
+	grid-template-columns: 1fr 2fr;
+}
+
+.business_img{
+	/*border: 2px solid green;*/
+
+}
+
+.business_info{
+	/*border: 2px solid blue;*/
+	padding: 20px;
+}
+
 
 
 

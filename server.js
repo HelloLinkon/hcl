@@ -9,7 +9,7 @@ var login = require('./routes/loginroutes');
 var connection = mysql.createConnection({
   host     : 'localhost',
   user     : 'root',
-  password : '',
+  password : 'HLC1024',
   database : 'highcountrylife'
 });
 
@@ -453,6 +453,9 @@ app.listen(5000);
 
  // ALTER TABLE categories
  // ADD cat_img varchar(200);
+
+ // ALTER TABLE county AUTO_INCREMENT=0;
+
 
 
 
