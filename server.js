@@ -358,6 +358,56 @@ router1.get('/category/:name', function(req, res){
 
 });
 
+router1.get('/county/:name/:category', function(req, res){
+
+	var id = req.params.category;
+	var name = req.params.name;
+	console.log(id, name);
+
+	// res.send(id, name);
+
+
+	connection.query('select * from categories, business where categories.category_name = ? and categories.id = business.category;',[id], function (error, results, fields) {
+	  if (error) {
+	    // console.log("error ocurred",error);
+	    res.send({
+	      "code":400,
+	      "failed":"error ocurred"
+	    })
+	  }else{
+	  	var image = results[0].cat_img;
+	  	if(image === "" || image == null)
+	  	{
+	  		image = '/static/upload/back1.jpg';
+	  	}
+	  	res.render(path.join(__dirname + '/views/category.ejs'), 
+	  		{
+	  			title : id,
+	  			info : results,
+	  			background : image
+			});
+
+		 
+	  }
+
+	});
+
+});
+
+
+
+router1.get('/county/:name', function(req, res){
+
+	res.render(path.join(__dirname + '/views/countypage.ejs'), {
+		title : req.params.name
+	});
+
+});
+
+// app.get('*', function(req, res){
+//   res.send('what???', 404);
+// });
+
 // test route
 router.get('/', function(req, res) {
     // res.sendFile(path.join(__dirname + '/templates/login.html'));
