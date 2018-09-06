@@ -1,0 +1,229 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>High Country Life</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="/static/css/style.css"/>
+
+</head>
+
+<body>
+
+
+<% include adminHead %>
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12">
+      <h1>Admin Guideline</h1>
+
+      <h3>1. Dashboard</h3>
+      <p>All possible operation with database can handle from Dashboard</p>
+      <table class="table">
+        <tr>
+          <td>URL</td>
+          <td>Action</td>
+        </tr>
+        <tr>
+          <td>
+            <a href="/admin/dashboard"> /admin/dashboard </a>
+          </td>
+          <td>
+            Dashbaord URL
+          </td>
+        </tr>
+      </table>
+
+      <h3>2. County</h3>
+      <p>Insert new County and Upload County CSV file</p>
+
+      <table class="table">
+        <tr>
+          <td>URL</td>
+          <td>Action</td>
+        </tr>
+        <tr>
+          <td>
+            <a href="/admin/county"> /admin/county </a>
+          </td>
+          <td>
+            Show all the County
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <a href="/admin/county/new"> /admin/county/new </a>
+          </td>
+          <td>
+            Add new County
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <a href="/admin/countyUpload"> /admin/countyUpload </a>
+          </td>
+          <td>
+            Upload County CSV file. 
+          </td>
+        </tr>
+
+
+      </table>
+
+      <h3>3. City</h3>
+      <p>Insert new City and Upload City CSV file</p>
+
+      <table class="table">
+        <tr>
+          <td>URL</td>
+          <td>Action</td>
+        </tr>
+        <tr>
+          <td>
+            <a href="/admin/city"> /admin/city </a>
+          </td>
+          <td>
+            Show all the City
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <a href="/admin/city/new"> /admin/city/new </a>
+          </td>
+          <td>
+            Add new City
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <a href="/admin/cityUpload"> /admin/cityUpload </a>
+          </td>
+          <td>
+            Upload City CSV file. 
+          </td>
+        </tr>
+
+
+      </table>
+
+
+      <h3>4. Category</h3>
+      <p>Insert new Categoryity and Upload Category CSV file</p>
+
+      <table class="table">
+        <tr>
+          <td>URL</td>
+          <td>Action</td>
+        </tr>
+        <tr>
+          <td>
+            <a href="/admin/categories"> /admin/categories </a>
+          </td>
+          <td>
+            Show all the categories
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <a href="/admin/category/new"> /admin/category/new </a>
+          </td>
+          <td>
+            Add new category
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <a href="#"> /admin/catedit/:id </a>
+          </td>
+          <td>
+            Edit category
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <a href="#"> /admin/catdelete/:id </a>
+          </td>
+          <td>
+            Delete category
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <a href="/admin/categoryUpload"> /admin/categoryUpload </a>
+          </td>
+          <td>
+            Upload categories CSV file. 
+          </td>
+        </tr>
+
+
+      </table>
+
+      <h3>5. Business</h3>
+      <p>Insert new Business and Upload Business CSV file</p>
+
+      <table class="table">
+        <tr>
+          <td>URL</td>
+          <td>Action</td>
+        </tr>
+        <tr>
+          <td>
+            <a href="/admin/business"> /admin/business </a>
+          </td>
+          <td>
+            Show all the Businesses
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <a href="/admin/business/new"> /admin/business/new </a>
+          </td>
+          <td>
+            Add new Business
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <a href="#"> /admin/edit/:id </a>
+          </td>
+          <td>
+            Edit Business
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <a href="#"> /admin/delete/:id </a>
+          </td>
+          <td>
+            Delete Business
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <a href="/admin/categoryUpload"> /admin/businessUpload </a>
+          </td>
+          <td>
+            Upload Businesses CSV file. 
+          </td>
+        </tr>
+
+
+      </table>
+        
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+</body>
+</html>

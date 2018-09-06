@@ -429,6 +429,20 @@ router.get('/countyUpload', function(req, res){
 
 });
 
+router.get('/documentation', function(req, res){
+
+	sess = req.session;
+
+	if(sess.email)
+	{
+		res.render(path.join(__dirname + '/views/documentation.ejs'));
+	}
+	else
+	{
+		res.redirect('/admin');
+	}
+});
+
 
 // app.get('*', function(req, res){
 //   res.send('what???', 404);
