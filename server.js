@@ -9,7 +9,7 @@ var login = require('./routes/loginroutes');
 var connection = mysql.createConnection({
   host     : 'localhost',
   user     : 'root',
-  password : 'HLC1024',
+  password : '',
   database : 'highcountrylife'
 });
 
@@ -35,6 +35,9 @@ app.use(function(req, res, next) {
 var router = express.Router();
 var router1 = express.Router();
 
+
+
+// admin dashboar
 router.get('/dashboard', function(req, res){
 	sess = req.session;
 
@@ -48,6 +51,8 @@ router.get('/dashboard', function(req, res){
 	}
 });
 
+
+// admin county
 router.get('/county', function(req, res){
 	sess = req.session;
 
@@ -72,7 +77,7 @@ router.get('/county', function(req, res){
 	}
 });
 
-
+// admin city
 router.get('/city', function(req, res){
 	sess = req.session;
 
@@ -98,6 +103,7 @@ router.get('/city', function(req, res){
 });
 
 
+// admin business
 router.get('/business', function(req, res){
 	sess = req.session;
 
@@ -122,6 +128,8 @@ router.get('/business', function(req, res){
 	}
 });
 
+
+// admin categories
 router.get('/categories', function(req, res){
 	sess = req.session;
 
@@ -404,6 +412,24 @@ router1.get('/county/:name', function(req, res){
 
 });
 
+// csv uploader
+
+router.get('/countyUpload', function(req, res){
+
+	sess = req.session;
+
+	if(sess.email)
+	{
+		res.render(path.join(__dirname + '/views/upload_county_csv.ejs'));
+	}
+	else
+	{
+		res.redirect('/admin');
+	}
+
+});
+
+
 // app.get('*', function(req, res){
 //   res.send('what???', 404);
 // });
@@ -429,6 +455,7 @@ router.post('/business',login.business);
 router.post('/category',login.category);
 router.post('/edit/:id', login.edit_business);
 router.post('/catedit/:id', login.edit_category);
+router.post('/saveCountyupload', login.countyUpload);
 
 
 

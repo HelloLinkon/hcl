@@ -18,16 +18,16 @@
 <div class="container">
   <div class="row">
     <div class="col-sm-12">
-      <h1>Add New County</h1>
+      <h1>Upload County CSV</h1>
 
-      <form method="POST" action="/admin/county">
-        <div class="form-group">
-          <label>County Name:</label>
-          <input type="text" class="form-control" name="county"/>
-        
-        </div>
-        <input type="submit" name="">
-      </form>
+      <form ref='uploadForm' 
+      id='uploadForm' 
+      action='/admin/saveCountyupload' 
+      method='post' 
+      encType="multipart/form-data">
+        <input type="file" name="sampleFile" />
+        <input type='submit' value='Upload!' />
+    </form> 
     </div>
   </div>
 </div>
@@ -39,5 +39,3 @@
 
 
 
-</body>
-</html>

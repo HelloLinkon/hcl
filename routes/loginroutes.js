@@ -1,11 +1,18 @@
 var mysql      = require('mysql');
 var path = require('path');
+
+var fs = require('fs');
+var csv = require('fast-csv');
+
+
 var connection = mysql.createConnection({
   host     : 'localhost',
   user     : 'root',
-  password : 'HLC1024',
+  password : '',
   database : 'highcountrylife'
 });
+
+
 connection.connect(function(err){
 if(!err) {
     console.log("Database is connected ... nn");
@@ -13,6 +20,8 @@ if(!err) {
     console.log("Error connecting database ... nn");
 }
 });
+
+
 
 exports.register = function(req,res){
   // console.log("req",req.body);
@@ -22,10 +31,6 @@ exports.register = function(req,res){
     "last_name":req.body.last_name,
     "email":req.body.email,
     "password":req.body.password,
-    //  "first_name": "linkon",
-    // "last_name": "islam",
-    // "email": "hi",
-    // "password": "hello",
     "created":today,
     "modified":today
   }
@@ -94,6 +99,8 @@ exports.county = function(req,res){
     "county":req.body.county,
     
   }
+
+  console.log("county :" + county);
   connection.query('INSERT INTO county SET ?',county, function (error, results, fields) {
   if (error) {
     console.log("error ocurred",error);
@@ -395,6 +402,54 @@ exports.edit_category = function(req,res){
 
 
   
+}
+
+
+exports.countyUpload = function(req, res){
+
+  if (!req.files)
+    return res.status(400).send('No files were uploaded.');
+ 
+  // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
+  let sampleFile = req.files.sampleFile;
+ 
+  // Use the mv() method to place the file somewhere on your server
+  sampleFile.mv('static/upload/'+ sampleFile.name, function(err) {
+    if (err)
+      return res.status(500).send(err);
+
+      var stream = fs.createReadStream("static/upload/" + sampleFile.name);
+      var csvStream = csv()
+        .on("data", function(data){
+             console.log(data[0]);
+             var county={
+                "county": data[0],
+                
+              }
+
+              console.log("county :" + county);
+              connection.query('INSERT INTO county SET ?',county, function (error, results, fields) {
+              if (error) {
+                console.log("error ocurred",error);
+                res.send({
+                  "code":400,
+                  "failed":"error ocurred"
+                })
+              }else{
+                console.log('The solution is: ', results);
+              }
+              });
+        })
+        .on("end", function(){
+             console.log("done");
+        });
+     
+      stream.pipe(csvStream);
+
+      res.redirect('/admin/county');
+      // res.send('File uploaded!');
+  });
+
 }
 
 
