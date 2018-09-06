@@ -3,7 +3,7 @@ var path = require('path');
 var connection = mysql.createConnection({
   host     : 'localhost',
   user     : 'root',
-  password : 'HLC1024',
+  password : '',
   database : 'highcountrylife'
 });
 connection.connect(function(err){

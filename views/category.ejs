@@ -16,19 +16,7 @@
         <span>toggle menu</span>
 </a> -->
 
-<nav id="menu" class="panel" role="navigation">
-      <ul>
-            <!-- <li><a data-scroll href="#">Home</a></li>
-            <li><a data-scroll href="#">Portofolio</a></li>
-            <li><a data-scroll href="#">Blog</a></li>
-            <li><a data-scroll href="#">contact</a></li>
-            <li><a data-scroll href="#">About</a></li> -->
-        </ul>
-</nav> 
-
-<div id="menu1">
-	<img src="/static/images/map.png">
-</div>
+<% include headmenu %>
 
 <!-- big header section -->
 <div class="big_header_section" style="background-image: url(<%= background %>);">
@@ -176,6 +164,7 @@
 <!-- end footer section -->
 
 <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery-imagemapster@1.2.10/dist/jquery.imagemapster.min.js"></script>
 <script src="/static/js/menuFullpage.min.js"></script>
 <script>
         smoothScroll.init();
@@ -207,6 +196,12 @@
 					activeBtn:"menu-open"
 
                 });
+
+                $('#myimage').mapster({
+			        fillColor: '4b543d',
+			        fillOpacity: 0.3,
+			        clickNavigate: true
+			    });
         });
 
         $(document).ready(function(){

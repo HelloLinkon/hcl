@@ -9,7 +9,7 @@ var login = require('./routes/loginroutes');
 var connection = mysql.createConnection({
   host     : 'localhost',
   user     : 'root',
-  password : 'HLC1024',
+  password : '',
   database : 'highcountrylife'
 });
 
@@ -438,7 +438,7 @@ router.get('/getcategory', login.getcategory);
 
 app.use('/admin', router);
 app.use('/', router1);
-app.listen(5000);
+app.listen(8010);
 
 
 
@@ -451,10 +451,10 @@ app.listen(5000);
 // ALTER TABLE business
 // ADD address varchar(200);
 
- // ALTER TABLE categories
- // ADD cat_img varchar(200);
+//  ALTER TABLE categories
+//  ADD cat_img varchar(200);
 
- // ALTER TABLE county AUTO_INCREMENT=0;
+//  ALTER TABLE county AUTO_INCREMENT=0;
 
 
 
