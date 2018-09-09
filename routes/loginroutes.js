@@ -453,6 +453,156 @@ exports.countyUpload = function(req, res){
 }
 
 
+exports.cityUpload = function(req, res){
+
+  if (!req.files)
+    return res.status(400).send('No files were uploaded.');
+ 
+  // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
+  let sampleFile = req.files.sampleFile;
+ 
+  // Use the mv() method to place the file somewhere on your server
+  sampleFile.mv('static/upload/'+ sampleFile.name, function(err) {
+    if (err)
+      return res.status(500).send(err);
+
+      var stream = fs.createReadStream("static/upload/" + sampleFile.name);
+      var csvStream = csv()
+        .on("data", function(data){
+             console.log(data[0]);
+             var city={
+                "city_name": data[0],
+                "county_id": data[1]
+              }
+
+              connection.query('INSERT INTO cities SET ?',city, function (error, results, fields) {
+              if (error) {
+                console.log("error ocurred",error);
+                res.send({
+                  "code":400,
+                  "failed":"error ocurred"
+                })
+              }else{
+                console.log('The solution is: ', results);
+              }
+              });
+        })
+        .on("end", function(){
+             console.log("done");
+        });
+     
+      stream.pipe(csvStream);
+
+      res.redirect('/admin/city');
+      // res.send('File uploaded!');
+  });
+
+}
+
+
+exports.categoryUpload = function(req, res){
+
+  if (!req.files)
+    return res.status(400).send('No files were uploaded.');
+ 
+  // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
+  let sampleFile = req.files.sampleFile;
+ 
+  // Use the mv() method to place the file somewhere on your server
+  sampleFile.mv('static/upload/'+ sampleFile.name, function(err) {
+    if (err)
+      return res.status(500).send(err);
+
+      var stream = fs.createReadStream("static/upload/" + sampleFile.name);
+      var csvStream = csv()
+        .on("data", function(data){
+             console.log(data[0]);
+             var category={
+                "category_name": data[0],
+                "cat_img": "/static/upload/"+ data[1]
+                
+              }
+
+              connection.query('INSERT INTO categories SET ?',category, function (error, results, fields) {
+              if (error) {
+                console.log("error ocurred",error);
+                res.send({
+                  "code":400,
+                  "failed":"error ocurred"
+                })
+              }else{
+                console.log('The solution is: ', results);
+              }
+              });
+        })
+        .on("end", function(){
+             console.log("done");
+        });
+     
+      stream.pipe(csvStream);
+
+      res.redirect('/admin/categories');
+      // res.send('File uploaded!');
+  });
+
+}
+
+exports.buisnessUpload = function(req, res){
+
+  if (!req.files)
+    return res.status(400).send('No files were uploaded.');
+ 
+  // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
+  let sampleFile = req.files.sampleFile;
+ 
+  // Use the mv() method to place the file somewhere on your server
+  sampleFile.mv('static/upload/'+ sampleFile.name, function(err) {
+    if (err)
+      return res.status(500).send(err);
+
+      var stream = fs.createReadStream("static/upload/" + sampleFile.name);
+      var csvStream = csv()
+        .on("data", function(data){
+             console.log(data[0]);
+             var business={
+                "title": data[0],
+                "image": "/static/upload/"+ data[1],
+                "video":data[2],
+                "details": data[3],
+                "city_id":data[4],
+                "category":data[5],
+                "priority":data[6],
+                "website":data[7],
+                "phone": data[8],
+                "address": data[9]
+
+              }
+
+              connection.query('INSERT INTO business SET ?',business, function (error, results, fields) {
+              if (error) {
+                console.log("error ocurred",error);
+                res.send({
+                  "code":400,
+                  "failed":"error ocurred"
+                })
+              }else{
+                console.log('The solution is: ', results);
+              }
+              });
+        })
+        .on("end", function(){
+             console.log("done");
+        });
+     
+      stream.pipe(csvStream);
+
+      res.redirect('/admin/business');
+      // res.send('File uploaded!');
+  });
+
+}
+
+
 
 
 

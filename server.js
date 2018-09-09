@@ -352,6 +352,9 @@ router1.get('/category/:name', function(req, res){
 	    })
 	  }else{
 	  	console.log(results[0].cat_img);
+
+	  
+
 	  	res.render(path.join(__dirname + '/views/category.ejs'), 
 	  		{
 	  			title : id,
@@ -429,6 +432,53 @@ router.get('/countyUpload', function(req, res){
 
 });
 
+router.get('/cityUpload', function(req, res){
+
+	sess = req.session;
+
+	if(sess.email)
+	{
+		res.render(path.join(__dirname + '/views/upload_city_csv.ejs'));
+	}
+	else
+	{
+		res.redirect('/admin');
+	}
+
+});
+
+router.get('/categoryUpload', function(req, res){
+
+	sess = req.session;
+
+	if(sess.email)
+	{
+		res.render(path.join(__dirname + '/views/upload_category_csv.ejs'));
+	}
+	else
+	{
+		res.redirect('/admin');
+	}
+
+});
+
+router.get('/businessUpload', function(req, res){
+
+	sess = req.session;
+
+	if(sess.email)
+	{
+		res.render(path.join(__dirname + '/views/upload_business_csv.ejs'));
+	}
+	else
+	{
+		res.redirect('/admin');
+	}
+
+});
+
+
+
 router.get('/documentation', function(req, res){
 
 	sess = req.session;
@@ -470,6 +520,9 @@ router.post('/category',login.category);
 router.post('/edit/:id', login.edit_business);
 router.post('/catedit/:id', login.edit_category);
 router.post('/saveCountyupload', login.countyUpload);
+router.post('/saveCityupload', login.cityUpload);
+router.post('/saveCategoryupload', login.categoryUpload);
+router.post('/saveBuisnessupload', login.buisnessUpload);
 
 
 
