@@ -245,6 +245,7 @@ router.get('/edit/:id', function(req, res){
 				details: results[0].details,
 				category: results[0].category,
 				city: results[0].city_id,
+				county: results[0].county_id,
 				priority: results[0].priority,
 				website: results[0].website,
 				phone: results[0].phone,
@@ -351,7 +352,16 @@ router1.get('/category/:name', function(req, res){
 	      "failed":"error ocurred"
 	    })
 	  }else{
-	  	console.log(results[0].cat_img);
+	  	console.log("results: " , results);
+	  	var image;
+
+	  	if(results === undefined || results.length == 0)
+	  	{
+	  		image = '/static/upload/attraction.jpg';
+	  	}
+	  	else{
+	  		image = results[0].cat_img;
+	  	}
 
 	  
 
@@ -359,7 +369,7 @@ router1.get('/category/:name', function(req, res){
 	  		{
 	  			title : id,
 	  			info : results,
-	  			background : results[0].cat_img
+	  			background : image
 			});
 
 		 
@@ -378,7 +388,7 @@ router1.get('/county/:name/:category', function(req, res){
 	// res.send(id, name);
 
 
-	connection.query('select * from categories, business where categories.category_name = ? and categories.id = business.category;',[id], function (error, results, fields) {
+	connection.query('select * from county, categories, business where categories.category_name = ? and categories.id = business.category and county.county = ? and county.id = business.county_id;',[id, name], function (error, results, fields) {
 	  if (error) {
 	    // console.log("error ocurred",error);
 	    res.send({
@@ -386,11 +396,18 @@ router1.get('/county/:name/:category', function(req, res){
 	      "failed":"error ocurred"
 	    })
 	  }else{
-	  	var image = results[0].cat_img;
-	  	if(image === "" || image == null)
+	  	var image;
+
+	  	console.log("final: " + results);
+
+	  	if(results === undefined || results.length == 0)
 	  	{
-	  		image = '/static/upload/back1.jpg';
+	  		image = '/static/upload/attraction.jpg';
 	  	}
+	  	else{
+	  		image = results[0].cat_img;
+	  	}
+
 	  	res.render(path.join(__dirname + '/views/category.ejs'), 
 	  		{
 	  			title : id,
@@ -537,7 +554,7 @@ app.listen(8010);
 
 
 // ALTER TABLE business
-// ADD website varchar(100); 
+// ADD county_id int(11); 
 
 // ALTER TABLE business
 // ADD phone varchar(100);

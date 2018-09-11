@@ -253,6 +253,7 @@ exports.business = function(req,res){
     "video":req.body.video,
     "details":req.body.details,
     "city_id":req.body.city_id,
+    "county_id":req.body.county_id,
     "category":req.body.category,
     "priority":req.body.priority,
     "website":req.body.website,
@@ -312,6 +313,7 @@ exports.edit_business = function(req,res){
     "video":req.body.video,
     "details":req.body.details,
     "city_id":req.body.city_id,
+    "county_id":req.body.county_id,
     "category":req.body.category,
     "priority":req.body.priority,
     "website":req.body.website,
@@ -570,11 +572,12 @@ exports.buisnessUpload = function(req, res){
                 "video":data[2],
                 "details": data[3],
                 "city_id":data[4],
-                "category":data[5],
-                "priority":data[6],
-                "website":data[7],
-                "phone": data[8],
-                "address": data[9]
+                "county_id" : data[5],
+                "category":data[6],
+                "priority":data[7],
+                "website":data[8],
+                "phone": data[9],
+                "address": data[10]
 
               }
 

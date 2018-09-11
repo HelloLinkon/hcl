@@ -63,6 +63,10 @@
         <label>Category :</label>
         <select name="category" id="catId" class="form-control" value="<%= category %>">
         </select>
+
+        <label>County id :</label>
+        <select name="county_id" id="countyId" class="form-control" value= "<%= county %>">
+        </select>
         
         <label>City id :</label>
         <select name="city_id" id="selectId" class="form-control" value="<%= city %>">
@@ -108,6 +112,21 @@
         $.each(data, function(key,value) {
           $el.append($("<option></option>")
              .attr("value", value.id).text(value.city_name));
+        });
+
+      }
+    });
+
+     $.ajax({
+      url: "/admin/getcounty",
+      dataType: "json",
+      success: function(data) {
+        console.log(data);
+        var $el = $("#countyId");
+        $el.empty(); // remove old options
+        $.each(data, function(key,value) {
+          $el.append($("<option></option>")
+             .attr("value", value.id).text(value.county));
         });
 
       }
