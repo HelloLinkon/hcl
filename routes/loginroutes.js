@@ -568,16 +568,16 @@ exports.buisnessUpload = function(req, res){
              console.log(data[0]);
              var business={
                 "title": data[0],
-                "image": "/static/upload/"+ data[1],
-                "video":data[2],
-                "details": data[3],
+                "image": "/static/upload/"+ data[9],
+                "video":data[10],
+                "details": data[8],
                 "city_id":data[4],
                 "county_id" : data[5],
-                "category":data[6],
-                "priority":data[7],
-                "website":data[8],
-                "phone": data[9],
-                "address": data[10]
+                "category":data[7],
+                "priority":data[6],
+                "website":data[1],
+                "phone": data[2],
+                "address": data[3]
 
               }
 

@@ -565,7 +565,7 @@ app.listen(8010);
 //  ALTER TABLE categories
 //  ADD cat_img varchar(200);
 
-//  ALTER TABLE county AUTO_INCREMENT=0;
+//  ALTER TABLE business AUTO_INCREMENT=0;
 
 
 
