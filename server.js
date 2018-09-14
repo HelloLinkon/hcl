@@ -9,7 +9,7 @@ var login = require('./routes/loginroutes');
 var connection = mysql.createConnection({
   host     : 'localhost',
   user     : 'root',
-  password : 'HLC1024',
+  password : '',
   database : 'highcountrylife'
 });
 
@@ -426,9 +426,39 @@ router1.get('/county/:name/:category', function(req, res){
 
 router1.get('/county/:name', function(req, res){
 
-	res.render(path.join(__dirname + '/views/countypage.ejs'), {
-		title : req.params.name
+	var id = req.params.name;
+	connection.query('select Distinct categories.category_name from county, categories, business where county.county = ? and categories.id = business.category and county.id = business.county_id;',[id], function (error, results, fields) {
+	  if (error) {
+	    // console.log("error ocurred",error);
+	    res.send({
+	      "code":400,
+	      "failed":"error ocurred"
+	    })
+	  }else{
+	  	
+	  	// console.log(typeof(results));
+	  	var catList = [];
+	  	if(results === undefined || results.length == 0)
+	  	{
+	  		
+	  	}
+	  	else{
+	  		results.forEach(item => {
+
+	  			catList.push(item.category_name);
+	  		});
+	  	}
+
+		res.render(path.join(__dirname + '/views/countypage.ejs'), {
+			title : req.params.name,
+			results: catList
+		});
+		 
+	  }
+
 	});
+
+	
 
 });
 
