@@ -10,7 +10,8 @@ var connection = mysql.createConnection({
   host     : 'localhost',
   user     : 'root',
   password : '',
-  database : 'highcountrylife'
+  database : 'highcountrylife',
+  multipleStatements: true
 });
 
 var app = express();
@@ -344,7 +345,13 @@ router.get("/logout", function(req, res){
 router1.get('/category/:name', function(req, res){
 
 	var id = req.params.name;
-	connection.query('select * from categories, business where categories.category_name = ? and categories.id = business.category;',[id], function (error, results, fields) {
+	var page = (req.query.page - 1) * 20 ;
+
+	console.log("page: "+req.query.page);
+
+	var sql = 'select * from categories, business where categories.category_name = ? and categories.id = business.category LIMIT 20 OFFSET '+ page +';SELECT COUNT(business.id) as total FROM business, categories WHERE categories.category_name = ? and categories.id = business.category';
+
+	connection.query(sql,[id, id], function (error, results, fields) {
 	  if (error) {
 	    // console.log("error ocurred",error);
 	    res.send({
@@ -352,24 +359,28 @@ router1.get('/category/:name', function(req, res){
 	      "failed":"error ocurred"
 	    })
 	  }else{
-	  	console.log("results: " , results);
+	  	console.log("results: " , results[1][0].total);
 	  	var image;
 
-	  	if(results === undefined || results.length == 0)
+	  	if(results[0] === undefined || results[0].length == 0)
 	  	{
 	  		image = '/static/upload/attraction.jpg';
 	  	}
 	  	else{
-	  		image = results[0].cat_img;
+	  		image = results[0][0].cat_img;
 	  	}
 
+
+
+	  
 	  
 
 	  	res.render(path.join(__dirname + '/views/category.ejs'), 
 	  		{
 	  			title : id,
-	  			info : results,
-	  			background : image
+	  			info : results[0],
+	  			background : image,
+	  			totalPage: results[1][0].total
 			});
 
 		 
@@ -412,7 +423,8 @@ router1.get('/county/:name/:category', function(req, res){
 	  		{
 	  			title : id,
 	  			info : results,
-	  			background : image
+	  			background : image,
+	  			totalPage: "0"
 			});
 
 		 

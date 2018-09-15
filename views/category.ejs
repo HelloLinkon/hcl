@@ -84,6 +84,23 @@
          </div>                               
 	<% }) %>
 
+
+	<div class="row">
+		<div class="col-sm-12">
+			<nav aria-label="Page navigation">
+			  <ul class="pagination">
+			    
+			   <!--  <li><a href="#">1</a></li>
+			    <li><a href="#">2</a></li>
+			    <li><a href="#">3</a></li>
+			    <li><a href="#">4</a></li>
+			    <li><a href="#">5</a></li> -->
+			    
+			  </ul>
+			</nav>
+		</div>
+	</div>
+
 </div>
 
 
@@ -207,6 +224,27 @@
         $(document).ready(function(){
 
 
+        	// make pagination
+
+        	var totalItems = "<%= totalPage %>";
+        	var title = "<%= title %>";
+        	totalItems = Number(totalItems);
+
+        	var pages = Math.ceil(totalItems/20);
+        	console.log(pages);
+
+        	$(".pagination").html = "";
+
+        	for(var i = 1; i <= pages; i++)
+        	{
+        		var item = '<li><a href="/category/'+ title +'?page='+ i +'">'+ i +'</a></li>';
+        		$(".pagination").append(item);
+        	}
+
+
+        	// end
+
+
         	// get category for menu
         	$.ajax({
 			  method: "GET",
@@ -217,7 +255,7 @@
 			  	console.log(data);
 			  	$("#menu ul").html = "";
 			  	data.forEach(function(item){
-			  		let li_element = "<li><a href='/category/"+ item.category_name +"'>"+ item.category_name +"</a></li>";
+			  		let li_element = "<li><a href='/category/"+ item.category_name +"?page=1'>"+ item.category_name +"</a></li>";
 			  		$("#menu ul").append(li_element);
 			  	});
 			  },

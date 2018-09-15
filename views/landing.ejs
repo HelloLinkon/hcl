@@ -240,7 +240,7 @@
 			  	console.log(data);
 			  	$("#menu ul").html = "";
 			  	data.forEach(function(item){
-			  		let li_element = "<li><a href='/category/"+ item.category_name +"'>"+ item.category_name +"</a></li>";
+			  		let li_element = "<li><a href='/category/"+ item.category_name +"?page=1'>"+ item.category_name +"</a></li>";
 			  		$("#menu ul").append(li_element);
 			  	});
 			  },
