@@ -5,11 +5,14 @@ var fs = require('fs');
 var csv = require('fast-csv');
 
 
+var config = require('./config.js');
+var db = config.database;
+
 var connection = mysql.createConnection({
-  host     : 'localhost',
-  user     : 'root',
-  password : '',
-  database : 'highcountrylife',
+  host     : db.host,
+  user     : db.user,
+  password : db.password,
+  database : db.database,
   multipleStatements: true
 });
 

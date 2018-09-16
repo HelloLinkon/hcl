@@ -231,14 +231,28 @@
         	totalItems = Number(totalItems);
 
         	var pages = Math.ceil(totalItems/20);
-        	console.log(pages);
+        	// console.log(pages);
 
         	$(".pagination").html = "";
+        	// console.log(window.location.pathname);
+        	var url = window.location.pathname;
+        	var noSlash = url.split('/');
+        	// console.log(noSlash);
 
         	for(var i = 1; i <= pages; i++)
         	{
-        		var item = '<li><a href="/category/'+ title +'?page='+ i +'">'+ i +'</a></li>';
+
+        		if(noSlash.length === 3)
+        		{
+					var item = '<li><a href="/category/'+ title +'?page='+ i +'">'+ i +'</a></li>';
+					        		
+        		}
+        		else{
+        			var item = '<li><a href="'+ url +'?page='+ i +'">'+ i +'</a></li>';
+        		}
+
         		$(".pagination").append(item);
+        		
         	}
 
 
@@ -252,7 +266,7 @@
 			  dataType: "json",
 			  success: function(data)
 			  {
-			  	console.log(data);
+			  	// console.log(data);
 			  	$("#menu ul").html = "";
 			  	data.forEach(function(item){
 			  		let li_element = "<li><a href='/category/"+ item.category_name +"?page=1'>"+ item.category_name +"</a></li>";

@@ -276,7 +276,7 @@ var catHtml = "<div class='col-sm-3'><div class='category_box cat"+ (key+1) +"'>
 			  	var newData = data.map(function(el){
 			  		if(catInCounty.indexOf(el.category_name) >= 0){
 
-			  			let li_element = "<li><a href='/county/"+ getTest +"/"+ el.category_name +"'>"+ el.category_name +"</a></li>";
+			  			let li_element = "<li><a href='/county/"+ getTest +"/"+ el.category_name +"?page=1'>"+ el.category_name +"</a></li>";
 
 			  			return li_element;
 			  		}

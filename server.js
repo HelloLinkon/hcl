@@ -5,12 +5,15 @@ var mysql      = require('mysql');
 var session = require('express-session');
 var fileUpload = require('express-fileupload');
 var login = require('./routes/loginroutes');
+var config = require('./routes/config.js');
+
+var db = config.database;
 
 var connection = mysql.createConnection({
-  host     : 'localhost',
-  user     : 'root',
-  password : '',
-  database : 'highcountrylife',
+  host     : db.host,
+  user     : db.user,
+  password : db.password,
+  database : db.database,
   multipleStatements: true
 });
 
@@ -394,12 +397,18 @@ router1.get('/county/:name/:category', function(req, res){
 
 	var id = req.params.category;
 	var name = req.params.name;
-	console.log(id, name);
+	// console.log(id, name);
+
+	var page = (req.query.page - 1) * 20 ;
+
+	console.log("page: "+req.query.page);
 
 	// res.send(id, name);
 
+	var sql = 'select * from county, categories, business where categories.category_name = ? and categories.id = business.category and county.county = ? and county.id = business.county_id LIMIT 20 OFFSET '+ page +'; select COUNT(business.id) as total from county, categories, business where categories.category_name = ? and categories.id = business.category and county.county = ? and county.id = business.county_id';
 
-	connection.query('select * from county, categories, business where categories.category_name = ? and categories.id = business.category and county.county = ? and county.id = business.county_id;',[id, name], function (error, results, fields) {
+
+	connection.query(sql,[id, name, id, name], function (error, results, fields) {
 	  if (error) {
 	    // console.log("error ocurred",error);
 	    res.send({
@@ -409,22 +418,22 @@ router1.get('/county/:name/:category', function(req, res){
 	  }else{
 	  	var image;
 
-	  	console.log("final: " + results);
+	  	console.log("final: " + results[0] + " count: " + results[1][0]);
 
-	  	if(results === undefined || results.length == 0)
+	  	if(results[0] === undefined || results[0].length == 0)
 	  	{
 	  		image = '/static/upload/attraction.jpg';
 	  	}
 	  	else{
-	  		image = results[0].cat_img;
+	  		image = results[0][0].cat_img;
 	  	}
 
 	  	res.render(path.join(__dirname + '/views/category.ejs'), 
 	  		{
 	  			title : id,
-	  			info : results,
+	  			info : results[0],
 	  			background : image,
-	  			totalPage: "0"
+	  			totalPage: results[1][0].total
 			});
 
 		 

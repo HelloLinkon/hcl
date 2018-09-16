@@ -237,7 +237,7 @@
 			  dataType: "json",
 			  success: function(data)
 			  {
-			  	console.log(data);
+			  	// console.log(data);
 			  	$("#menu ul").html = "";
 			  	data.forEach(function(item){
 			  		let li_element = "<li><a href='/category/"+ item.category_name +"?page=1'>"+ item.category_name +"</a></li>";
