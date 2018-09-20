@@ -54,6 +54,7 @@ img{
 	left: 50%;
 	font-family: 'Poppins', sans-serif;
 	transform: translateX(-50%);
+	text-transform: capitalize;
 }
 
 .header_title h1::after{
