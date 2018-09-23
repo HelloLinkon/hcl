@@ -6,6 +6,7 @@ var session = require('express-session');
 var fileUpload = require('express-fileupload');
 var login = require('./routes/loginroutes');
 var config = require('./routes/config.js');
+const favicon = require('express-favicon');
 
 var db = config.database;
 
@@ -19,11 +20,14 @@ var connection = mysql.createConnection({
 
 var app = express();
 
+
 app.use(session({secret: 'ssshhhhh'}));
 
 app.set('view engine', 'ejs');
 
 app.use('/static', express.static('static'))
+
+app.use(favicon(__dirname + '/static/favicon.png'));
 
 app.use(fileUpload());
 
@@ -367,7 +371,7 @@ router1.get('/category/:name', function(req, res){
 
 	  	if(results[0] === undefined || results[0].length == 0)
 	  	{
-	  		image = '/static/upload/attraction.jpg';
+	  		image = '/static/images/back2.jpg';
 	  	}
 	  	else{
 	  		image = results[0][0].cat_img;
@@ -422,7 +426,7 @@ router1.get('/county/:name/:category', function(req, res){
 
 	  	if(results[0] === undefined || results[0].length == 0)
 	  	{
-	  		image = '/static/upload/attraction.jpg';
+	  		image = '/static/images/back2.jpg';
 	  	}
 	  	else{
 	  		image = results[0][0].cat_img;

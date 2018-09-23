@@ -151,7 +151,7 @@ exports.getcity = function(req,res){
 }
 
 exports.getcategory = function(req,res){
-  connection.query('SELECT * FROM categories', function (error, results, fields) {
+  connection.query('SELECT * FROM categories ORDER BY category_name', function (error, results, fields) {
       if (error) {
         console.log("error ocurred",error);
         res.send({

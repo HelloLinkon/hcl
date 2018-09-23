@@ -3,6 +3,7 @@
 <head>
 	<title>High Country Life</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<link rel='shortcut icon' type='image/x-icon' href='/static/favicon.ico' />
 	<link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
 	<link href="/static/css/menufullpage.css" rel="stylesheet" type="text/css">
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
@@ -113,10 +114,13 @@
 <!-- category section -->
 <div class="category_section">
 	<div class="container-fluid">
-		<div class="row">
+		<div class="row" id="one1">
 			
 		</div>
-		<!-- <div style="height: 10px;"></div> -->
+		<div style="height: 10px;"></div>
+		<div class="row" id="two2">
+			
+		</div>
 		
 	</div>
 </div>
@@ -244,27 +248,35 @@
 
 
         	//category page middle section
-
-        	var middlecategory = ['Food', 'Lodging', 'Shopping', 'Camping', 'Art & Crafts', 'Things to Do', 'Adventure', 'Attractions'];
-
-        	$(".category_section .row").html("");
         	var getTest = "<%= title  %>";
         	var tempo = "<%= results %>";
         	var catInCounty = tempo.split(',');
 
-        	console.log(catInCounty);
-
-        	middlecategory.forEach(function(item, key){
 
 
-var catHtml = "<div class='col-sm-3'><div class='category_box cat"+ (key+1) +"'><h1>"+ item +"</h1><a href='/county/"+ getTest +"/"+ item.toLowerCase() +"?page=1'><button class='btn_white'>More</button></a></div></div>" ;
+        	var catData = catInCounty.sort();
+        	console.log(catData);
 
-        		// console.log(item, key);
-        		// console.log(catHtml);
+        	if(catData.length >= 1 && catData[0] != "")
+        	{
+				$(".category_section #one1").html = "";
+				catData.slice(0,4).forEach(function(item, key){
+				  		var catHtml = "<div class='col-sm-3'><div class='category_box cat"+ (key+1) +"'><h1>"+ item +"</h1><a href='/county/"+ getTest +"/"+ item.toLowerCase() +"?page=1'><button class='btn_white'>More</button></a></div></div>" ;
+				  		$(".category_section #one1").append(catHtml);
+				});
 
-        		$(".category_section .row").append(catHtml);
+				$(".category_section #two2").html = "";
+				catData.slice(4,8).forEach(function(item, key){
+				  		var catHtml = "<div class='col-sm-3'><div class='category_box cat"+ (key+5) +"'><h1>"+ item +"</h1><a href='/county/"+ getTest +"/"+ item.toLowerCase() +"?page=1'><button class='btn_white'>More</button></a></div></div>" ;
+				  		$(".category_section #two2").append(catHtml);
+				});
 
-        	});
+        	}
+
+        	
+
+
+
 
 
         	// get category for menu
@@ -292,7 +304,8 @@ var catHtml = "<div class='col-sm-3'><div class='category_box cat"+ (key+1) +"'>
 			  		}
 			  	});
 
-			  	// console.log(newData);
+
+			  	
 
 
 			  	$("#menu ul").html = "";
@@ -300,6 +313,12 @@ var catHtml = "<div class='col-sm-3'><div class='category_box cat"+ (key+1) +"'>
 			  		
 			  		$("#menu ul").append(item);
 			  	});
+
+
+			
+
+
+
 			  },
 			  error: function(error){
 			  	console.log(error);
