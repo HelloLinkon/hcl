@@ -6,7 +6,6 @@ var session = require('express-session');
 var fileUpload = require('express-fileupload');
 var login = require('./routes/loginroutes');
 var config = require('./routes/config.js');
-const favicon = require('express-favicon');
 
 var db = config.database;
 
@@ -27,7 +26,6 @@ app.set('view engine', 'ejs');
 
 app.use('/static', express.static('static'))
 
-app.use(favicon(__dirname + '/static/favicon.png'));
 
 app.use(fileUpload());
 
