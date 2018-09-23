@@ -260,6 +260,28 @@ img{
 }
 
 
+@media (max-width: 767px) {
+	.business_box {
+    display: grid;
+    grid-template-columns: 2fr;
+	}
+
+	.footer_section{
+		text-align: center;
+	}
+
+	.fixed_menu{
+		right: 20px;
+	}
+
+	.header_title h1{
+		top: 200px;
+	}
+}
+@media (min-width: 768px) and (max-width: 991px) {}
+
+
+
 
 
 
