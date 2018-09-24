@@ -26,7 +26,122 @@
 
 <div id="menu1">
 	<!-- <img src="/static/images/map.png"> -->
-	<p>
+	<div class="visible-xs">
+    <div class="container">
+   <div class="row">
+    <div class="col-xs-12">
+      <h3>East Tennessee</h3>
+    </div>
+   </div>
+     <div class="row">
+        <div class="col-xs-6">
+          
+          <ul class="mob_menu">
+            <li>
+              <a href="/county/Blount">Blount</a>
+            </li>
+            <li>
+              <a href="/county/Cocke">Cocke</a>
+            </li>
+            <li>
+              <a href="/county/Jefferson">Jefferson</a>
+            </li>
+            <li>
+              <a href="/county/Knox">Knox</a>
+            </li>
+            <li>
+              <a href="/county/Sevier">Sevier</a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="col-xs-6">
+          <img src="/static/images/east.png" alt="logo" style="width: 100%;">
+        </div>
+     </div>
+
+     <div class="row">
+    <div class="col-xs-12">
+      <h3>Upper East Tennessee</h3>
+    </div>
+   </div>
+     <div class="row">
+        <div class="col-xs-6">
+          
+          <ul class="mob_menu">
+            <li>
+              <a href="/county/Carter">Carter</a>
+            </li>
+            <li>
+              <a href="/county/Greene">Greene</a>
+            </li>
+            <li>
+              <a href="/county/Johnson">Johnson</a>
+            </li>
+            <li>
+              <a href="/county/Sullivan">Sullivan</a>
+            </li>
+            <li>
+              <a href="/county/Unicoi">Unicoi</a>
+            </li>
+            <li>
+              <a href="/county/Washington">Washington</a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="col-xs-6">
+          <img src="/static/images/upper.png" alt="logo" style="width: 100%;">
+        </div>
+     </div>
+
+
+     <div class="row">
+    <div class="col-xs-12">
+      <h3>Western North Carolina</h3>
+    </div>
+   </div>
+     <div class="row">
+        <div class="col-xs-6">
+          
+          <ul class="mob_menu">
+            <li>
+              <a href="/county/Ashe">Ashe</a>
+            </li>
+            <li>
+              <a href="/county/Avery">Avery</a>
+            </li>
+            <li>
+              <a href="/county/Buncombe">Buncombe</a>
+            </li>
+            <li>
+              <a href="/county/Haywood">Haywood</a>
+            </li>
+            <li>
+              <a href="/county/Madison">Madison</a>
+            </li>
+            <li>
+              <a href="/county/Mitchell">Mitchell</a>
+            </li>
+            <li>
+              <a href="/county/Swain">Swain</a>
+            </li>
+            <li>
+              <a href="/county/Yancey">Yancey</a>
+            </li>
+            <li>
+              <a href="/county/Watauga">Watauga</a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="col-xs-6">
+          <img src="/static/images/north.png" alt="logo" style="width: 100%;">
+        </div>
+     </div>
+</div>
+  </div>
+	<p class="hidden-xs">
 	<img src="/static/images/map.png" alt="epac banner" 
 	  title="" usemap="#epacbanner" id="myimage" style="width: 100%;" />
   <map name="epacbanner">
@@ -133,10 +248,11 @@
 	<div class="row">
 		<div class="col-sm-6">
 			<div class="guide_info">
+				
 				<!-- <img src="https://www.coca-colaindia.com/content/dam/journey/in/en/private/faqs/contact-us2.jpg"> -->
 				<h1>Add your business</h1>
 				<p>Do you Want to promote your business to travelers? Feel Free to Contact us</p>
-				<a class="btn_default" href="https://goo.gl/forms/aI8tYvjC0wS3cn9I2" target="_blank">Contact</a>
+				<a class="btn_default" href="https://docs.google.com/forms/d/e/1FAIpQLSdqquo-GrYdyh5D858BV6rM7kJkFM4ZsASTN7Qs8_I-1h5s6g/viewform?embedded=true" target="_blank">Contact</a>
 			</div>
 		</div>
 		<div class="col-sm-6">
@@ -144,7 +260,7 @@
 				<!-- <img src="/static/images/newsletter.jpg"> -->
 				<h1>Newsletter</h1>
 				<p>Do you want to know more about Highcountylife? Subscribe for Newsletter</p>
-				<a class="btn_default" href="https://goo.gl/forms/SXOy6V629UZM1ScB3" target="_blank">Subscribe</a>
+				<a class="btn_default" href="https://docs.google.com/forms/d/e/1FAIpQLSfwNLCrY22sSMLP68Re-oQkVBheQbwjxZbkRo2YwrdBQ47vnw/viewform?embedded=true" target="_blank">Subscribe</a>
 			</div>
 		</div>
 	</div>
@@ -251,9 +367,15 @@
         	//category page middle section
         	var getTest = "<%= title  %>";
         	var tempo = "<%= results %>";
+
         	var catInCounty = tempo.split(',');
 
+        	var newcatLink = [];
 
+        	catInCounty.forEach(function(item){
+        		 let part = item.split('-');
+        		 newcatLink.push(part[0]);
+        	});
 
         	var catData = catInCounty.sort();
         	console.log(catData);
@@ -262,13 +384,16 @@
         	{
 				$(".category_section #one1").html = "";
 				catData.slice(0,4).forEach(function(item, key){
-				  		var catHtml = "<div class='col-sm-3'><div class='category_box cat"+ (key+1) +"'><h1>"+ item +"</h1><a href='/county/"+ getTest +"/"+ item.toLowerCase() +"?page=1'><button class='btn_white'>More</button></a></div></div>" ;
+
+						let part = item.split('-');
+				  		var catHtml = "<div class='col-sm-3'><div class='category_box' style='background-image: url(" + part[1] + ");'><h1>"+ part[0] +"</h1><a href='/county/"+ getTest +"/"+ part[0].toLowerCase() +"?page=1'><button class='btn_white'>More</button></a></div></div>" ;
 				  		$(".category_section #one1").append(catHtml);
 				});
 
 				$(".category_section #two2").html = "";
 				catData.slice(4,8).forEach(function(item, key){
-				  		var catHtml = "<div class='col-sm-3'><div class='category_box cat"+ (key+5) +"'><h1>"+ item +"</h1><a href='/county/"+ getTest +"/"+ item.toLowerCase() +"?page=1'><button class='btn_white'>More</button></a></div></div>" ;
+					    let part = item.split('-');
+				  		var catHtml = "<div class='col-sm-3'><div class='category_box' style='background-image: url(" + part[1] + ");'><h1>"+ part[0] +"</h1><a href='/county/"+ getTest +"/"+ part[0].toLowerCase() +"?page=1'><button class='btn_white'>More</button></a></div></div>" ;
 				  		$(".category_section #two2").append(catHtml);
 				});
 
@@ -291,7 +416,7 @@
 
 
 			  	var newData = data.map(function(el){
-			  		if(catInCounty.indexOf(el.category_name) >= 0){
+			  		if(newcatLink.indexOf(el.category_name) >= 0){
 
 			  			let li_element = "<li><a href='/county/"+ getTest +"/"+ el.category_name +"?page=1'>"+ el.category_name +"</a></li>";
 

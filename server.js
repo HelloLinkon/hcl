@@ -450,7 +450,7 @@ router1.get('/county/:name/:category', function(req, res){
 router1.get('/county/:name', function(req, res){
 
 	var id = req.params.name;
-	connection.query('select Distinct categories.category_name from county, categories, business where county.county = ? and categories.id = business.category and county.id = business.county_id;',[id], function (error, results, fields) {
+	connection.query('select Distinct categories.category_name, categories.cat_img from county, categories, business where county.county = ? and categories.id = business.category and county.id = business.county_id;',[id], function (error, results, fields) {
 	  if (error) {
 	    // console.log("error ocurred",error);
 	    res.send({
@@ -468,7 +468,7 @@ router1.get('/county/:name', function(req, res){
 	  	else{
 	  		results.forEach(item => {
 
-	  			catList.push(item.category_name);
+	  			catList.push(item.category_name + "-" + item.cat_img);
 	  		});
 	  	}
 
