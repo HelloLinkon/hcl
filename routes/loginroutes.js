@@ -211,7 +211,11 @@ exports.category = function(req,res){
               file.mv('static/upload/'+file.name, function(err) {
                              
                if (err)
-                return res.status(500).send(err);
+               {
+                 console.log("failed to move file");
+                 return res.status(500).send(err);
+               }
+                
 
               connection.query('INSERT INTO categories SET ?',category, function (error, results, fields) {
               if (error) {
