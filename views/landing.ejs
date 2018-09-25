@@ -64,60 +64,19 @@ So... get on your way!”</p>
 <!-- category section -->
 <div class="category_section">
 	<div class="container-fluid">
-		<div class="row">
-			<div class="col-sm-3">
-				<div class="category_box cat2">
-					<a href="/category/adventure?page=1"><button class="btn_white">Adventure </button></a> 
-				</div>
-			</div>
-			<div class="col-sm-3">
-
-				<div class="category_box cat1">
-					<a href="/category/attractions?page=1">
-						<button class="btn_white">Attractions</button>
-					</a>
-					 
-				</div>
-			</div>
-			<div class="col-sm-3">
-				<div class="category_box cat5">
-					<a href="/category/camping?page=1"><button class="btn_white">Camping </button> </a>
-				</div>
-			</div>
-			<div class="col-sm-3">
-				<div class="category_box cat6">
-					<a href="/category/cycling?page=1"><button class="btn_white">Cycling</button> </a>
-				</div>
-			</div>
+		<div class="row" id="catChild1">
 			
 			
 			
 		</div>
 		<div style="height: 10px;"></div>
-		<div class="row">
-			<div class="col-sm-3">
-				<div class="category_box cat8">
-					<a href="/category/hiking?page=1"><button class="btn_white">Hiking </button> </a>
-				</div>
-			</div>
-
-			<div class="col-sm-3">
-				<div class="category_box cat4">
-					<a href="/category/lodging?page=1"><button class="btn_white">Lodging </button></a> 
-				</div>
-			</div>
-
-			<div class="col-sm-3">
-				<div class="category_box cat3">
-					<a href="/category/retail?page=1"><button class="btn_white">Retail </button></a> 
-				</div>
-			</div>
+		<div class="row" id="catChild2">
 			
-			<div class="col-sm-3">
-				<div class="category_box cat7">
-					<a href="/category/services?page=1"><button class="btn_white">Services </button> </a>
-				</div>
-			</div>
+			
+		</div>
+		<div style="height: 10px;"></div>
+		<div class="row" id="catChild3">
+			
 			
 		</div>
 	</div>
@@ -305,7 +264,35 @@ So... get on your way!”</p>
 			  dataType: "json",
 			  success: function(data)
 			  {
-			  	// console.log(data);
+			  	console.log(data);
+
+
+			  	data.slice(0,4).forEach(function(item){
+			  		var htmL = '<div class="col-sm-3"><div class="category_box" style="background: url('+item.cat_img+');"><a href="/category/'+ item.category_name +'?page=1"><button class="btn_white">'+
+			  		item.category_name +' </button></a> </div></div>';
+
+			  		$("#catChild1").append(htmL);
+			  	});
+
+			  	data.slice(4,8).forEach(function(item){
+			  		var htmL = '<div class="col-sm-3"><div class="category_box" style="background: url('+item.cat_img+');"><a href="/category/'+ item.category_name +'?page=1"><button class="btn_white">'+
+			  		item.category_name +' </button></a> </div></div>';
+
+			  		$("#catChild2").append(htmL);
+			  	});
+
+			  	data.slice(8,12).forEach(function(item){
+			  		var htmL = '<div class="col-sm-3"><div class="category_box" style="background: url('+item.cat_img+');"><a href="/category/'+ item.category_name +'?page=1"><button class="btn_white">'+
+			  		item.category_name +' </button></a> </div></div>';
+
+			  		$("#catChild3").append(htmL);
+			  	});
+
+			  	
+			  		
+
+
+
 			  	$("#menu ul").html = "";
 			  	data.forEach(function(item){
 			  		let li_element = "<li><a href='/category/"+ item.category_name +"?page=1'>"+ item.category_name +"</a></li>";
