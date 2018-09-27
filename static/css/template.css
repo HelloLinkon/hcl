@@ -230,8 +230,10 @@ img{
 .category_box h1{
 	font-size: 20px;
 	position: absolute;
-	width: 80%;
+	left: 50%;
 	top: 20%;
+	transform: translateX(-50%);
+    font-weight: bold;
 }
 
 .category_section .col-sm-3{
