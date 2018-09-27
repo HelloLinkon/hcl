@@ -24,8 +24,6 @@
               <thead>  
                   <tr>  
                       <th>Title</th>  
-                      <th>image</th> 
-                      <th>video</th>  
                       <th>Details</th>
                       <th>Category</th>  
                       <th>priority</th>   
@@ -38,14 +36,7 @@
                <tbody>  
                <% obj.forEach(function (user) { %>
                   <tr>  
-                      <td><%= user.title %></td>  
-                      <td>
-                        <img src="<%= user.image %>">
-                      </td>
-                      <td>
-                        <iframe src="<%= user.video %>"></iframe>
-                        
-                      </td>  
+                      <td><%= user.title %></td>    
                       <td><%= user.details %></td>
                       <td><%= user.category %></td>
                       <td><%= user.priority %></td>
