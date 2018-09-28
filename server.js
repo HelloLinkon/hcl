@@ -354,7 +354,7 @@ router1.get('/category/:name', function(req, res){
 
 	console.log("page: "+req.query.page);
 
-	var sql = 'select * from categories, business where categories.category_name = ? and categories.id = business.category LIMIT 20 OFFSET '+ page +';SELECT COUNT(business.id) as total FROM business, categories WHERE categories.category_name = ? and categories.id = business.category';
+	var sql = 'select * from cities, categories, business where categories.category_name = ? and categories.id = business.category and cities.id = business.city_id LIMIT 20 OFFSET '+ page +';SELECT COUNT(business.id) as total FROM business, categories WHERE categories.category_name = ? and categories.id = business.category';
 
 	connection.query(sql,[id, id], function (error, results, fields) {
 	  if (error) {
@@ -407,7 +407,7 @@ router1.get('/county/:name/:category', function(req, res){
 
 	// res.send(id, name);
 
-	var sql = 'select * from county, categories, business where categories.category_name = ? and categories.id = business.category and county.county = ? and county.id = business.county_id LIMIT 20 OFFSET '+ page +'; select COUNT(business.id) as total from county, categories, business where categories.category_name = ? and categories.id = business.category and county.county = ? and county.id = business.county_id';
+	var sql = 'select * from cities, county, categories, business where cities.id = business.city_id and categories.category_name = ? and categories.id = business.category and county.county = ? and county.id = business.county_id LIMIT 20 OFFSET '+ page +'; select COUNT(business.id) as total from county, categories, business where categories.category_name = ? and categories.id = business.category and county.county = ? and county.id = business.county_id';
 
 
 	connection.query(sql,[id, name, id, name], function (error, results, fields) {
