@@ -396,6 +396,54 @@ router1.get('/category/:name', function(req, res){
 
 });
 
+router1.get('/city/:name', function(req, res){
+
+	var id = req.params.name;
+	var page = (req.query.page - 1) * 20 ;
+
+	console.log("page: "+req.query.page);
+
+	var sql = 'select * from cities, categories, business where cities.city_name = ? and cities.id = business.city_id and categories.id = business.category LIMIT 20 OFFSET '+ page +'; SELECT COUNT(business.id) as total FROM business, cities WHERE cities.city_name = ? and cities.id = business.city_id';
+
+	connection.query(sql,[id, id], function (error, results, fields) {
+	  if (error) {
+	    // console.log("error ocurred",error);
+	    res.send({
+	      "code":400,
+	      "failed":"error ocurred"
+	    })
+	  }else{
+	  	console.log("results: " , results[1][0].total);
+	  	var image;
+
+	  	if(results[0] === undefined || results[0].length == 0)
+	  	{
+	  		image = '/static/images/back2.jpg';
+	  	}
+	  	else{
+	  		image = '/static/images/back2.jpg';
+	  	}
+
+
+
+	  
+	  
+
+	  	res.render(path.join(__dirname + '/views/category.ejs'), 
+	  		{
+	  			title : id,
+	  			info : results[0],
+	  			background : image,
+	  			totalPage: results[1][0].total
+			});
+
+		 
+	  }
+
+	});
+
+});
+
 router1.get('/county/:name/:category', function(req, res){
 
 	var id = req.params.category;
