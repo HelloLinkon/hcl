@@ -302,6 +302,22 @@ address{
 	color: white;
 }
 
+.city_place{
+	margin: 20px 0;
+}
+
+.city_pill{
+	background: #727957;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 20px;
+    font-weight: bold;
+}
+
+.city_pill:hover{
+	color: white;
+}
+
 
 @media (max-width: 767px) {
 	.business_box {

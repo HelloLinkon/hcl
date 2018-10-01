@@ -221,6 +221,21 @@
 </div>
 <!-- end big header section -->
 
+<!-- city section -->
+<div class="city_place">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-2">
+        <div class="all_city">
+          <!--  <a href="#" class="city_pill">city1</a> -->
+        </div>
+       
+      </div>
+    </div>
+  </div>
+</div>
+<!-- end of city section -->
+
 <!-- intro text section -->
 <div class="text_section">
 
@@ -461,6 +476,31 @@ So... get on your way!”</p>
 
         	}
 
+
+
+
+
+        $.ajax({
+            method: "GET",
+            url: "/admin/citiesofcounty/"+getTest,
+            dataType: "json",
+            success: function(data)
+            {
+              
+               
+                console.log(data);
+                $(".all_city").html = "";
+              data.forEach(function(item){
+                var Html = '<a href="#" class="city_pill">'+ item.city_name +'</a>';
+                $(".all_city").append(Html);
+                 
+              });
+
+            },
+            error: function(error){
+              console.log(error);
+            }
+          });
         	
 
 
@@ -469,49 +509,49 @@ So... get on your way!”</p>
 
         	// get category for menu
         	$.ajax({
-			  method: "GET",
-			  url: "/admin/getcategory",
-			  dataType: "json",
-			  success: function(data)
-			  {
-			  	
+    			  method: "GET",
+    			  url: "/admin/getcategory",
+    			  dataType: "json",
+    			  success: function(data)
+    			  {
+    			  	
 
 
-			  	var newData = data.map(function(el){
-			  		if(newcatLink.indexOf(el.category_name) >= 0){
+    			  	var newData = data.map(function(el){
+    			  		if(newcatLink.indexOf(el.category_name) >= 0){
 
-			  			let li_element = "<li><a href='/county/"+ getTest +"/"+ el.category_name +"?page=1'>"+ el.category_name +"</a></li>";
+    			  			let li_element = "<li><a href='/county/"+ getTest +"/"+ el.category_name +"?page=1'>"+ el.category_name +"</a></li>";
 
-			  			return li_element;
-			  		}
-			  		else{
-			  			
-			  			let li_element = "<li><a href='#'>"+ el.category_name +"</a></li>";
+    			  			return li_element;
+    			  		}
+    			  		else{
+    			  			
+    			  			let li_element = "<li><a href='#'>"+ el.category_name +"</a></li>";
 
-			  			return li_element;
-			  		}
-			  	});
-
-
-			  	
+    			  			return li_element;
+    			  		}
+    			  	});
 
 
-			  	$("#menu ul").html = "";
-			  	newData.forEach(function(item){
-			  		
-			  		$("#menu ul").append(item);
-			  	});
+    			  	
 
 
-			
+    			  	$("#menu ul").html = "";
+    			  	newData.forEach(function(item){
+    			  		
+    			  		$("#menu ul").append(item);
+    			  	});
+
+
+    			
 
 
 
-			  },
-			  error: function(error){
-			  	console.log(error);
-			  }
-			});
+    			  },
+    			  error: function(error){
+    			  	console.log(error);
+    			  }
+    			});
         });
 
 </script>
