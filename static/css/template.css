@@ -312,6 +312,15 @@ address{
     padding: 10px 15px;
     border-radius: 20px;
     font-weight: bold;
+    text-align: center;
+    margin: 3px;
+}
+
+.all_city{
+	display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 .city_pill:hover{
