@@ -255,7 +255,8 @@ router.get('/edit/:id', function(req, res){
 				priority: results[0].priority,
 				website: results[0].website,
 				phone: results[0].phone,
-				address: results[0].address
+				address: results[0].address,
+				state: results[0].state
 			});
 	  }
 

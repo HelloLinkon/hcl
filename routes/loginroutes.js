@@ -263,6 +263,7 @@ exports.business = function(req,res){
     "city_id":req.body.city_id,
     "county_id":req.body.county_id,
     "category":req.body.category,
+    "state":req.body.state,
     "priority":req.body.priority,
     "website":req.body.website,
     "phone":req.body.phone,
@@ -323,6 +324,7 @@ exports.edit_business = function(req,res){
     "city_id":req.body.city_id,
     "county_id":req.body.county_id,
     "category":req.body.category,
+    "state":req.body.state,
     "priority":req.body.priority,
     "website":req.body.website,
     "phone":req.body.phone,
@@ -585,7 +587,8 @@ exports.buisnessUpload = function(req, res){
                 "priority":data[6],
                 "website":data[1],
                 "phone": data[2],
-                "address": data[3]
+                "address": data[3],
+                "state": data[11]
 
               }
 
