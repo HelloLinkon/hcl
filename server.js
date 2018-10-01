@@ -600,6 +600,7 @@ router.post('/saveBuisnessupload', login.buisnessUpload);
 router.get('/getcounty', login.getcounty);
 router.get('/getcity', login.getcity);
 router.get('/getcategory', login.getcategory);
+router.get('/citiesofcounty/:county', login.citiesofcounty);
 
 app.use('/admin', router);
 app.use('/', router1);

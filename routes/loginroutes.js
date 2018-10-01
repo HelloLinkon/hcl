@@ -150,6 +150,22 @@ exports.getcity = function(req,res){
   });
 }
 
+exports.citiesofcounty = function(req,res){
+  var id = req.params.county;
+  connection.query('SELECT * FROM cities, county WHERE county.county = ? and cities.county_id = county.id', id, function (error, results, fields) {
+      if (error) {
+        console.log("error ocurred",error);
+        res.send({
+          "code":400,
+          "failed":"error ocurred"
+        })
+      }else{
+        // console.log(results[0]);
+        res.json(results);
+      }
+  });
+}
+
 exports.getcategory = function(req,res){
   connection.query('SELECT * FROM categories ORDER BY category_name', function (error, results, fields) {
       if (error) {
