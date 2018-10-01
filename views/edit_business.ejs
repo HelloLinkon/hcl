@@ -78,7 +78,7 @@
         </div>
 
         <div class="form-group">
-          <label for="exampleInputPassword1">Priority</label>
+          <label for="exampleInputPassword1">Zip</label>
           <input type="text" class="form-control" name="priority" id="exampleInputEmail1" placeholder="priority" value="<%= priority %>">
         </div>
 
@@ -105,7 +105,11 @@
 <script type="text/javascript">
   $(document).ready(function(){
 
-    $('textarea').froalaEditor();
+    // $('textarea').froalaEditor();
+
+    var cat = "<%= category %>";
+    var city1 = "<%= city %>";
+    var county1 = "<%= county %>";
      
      $.ajax({
       url: "/admin/getcity",
@@ -115,8 +119,20 @@
         var $el = $("#selectId");
         $el.empty(); // remove old options
         $.each(data, function(key,value) {
-          $el.append($("<option></option>")
+
+
+          if(value.id == city1){
+
+            $el.append($("<option></option>")
+             .attr({"value": value.id, "selected": "true"}).text(value.city_name));
+
+          }
+          else{
+            $el.append($("<option></option>")
              .attr("value", value.id).text(value.city_name));
+          }
+
+          
         });
 
       }
@@ -130,8 +146,18 @@
         var $el = $("#countyId");
         $el.empty(); // remove old options
         $.each(data, function(key,value) {
-          $el.append($("<option></option>")
+
+          if(value.id == county1){
+
+            $el.append($("<option></option>")
+             .attr({"value": value.id, "selected": "true"}).text(value.county));
+
+          }
+          else{
+            $el.append($("<option></option>")
              .attr("value", value.id).text(value.county));
+          }
+          
         });
 
       }
@@ -145,8 +171,17 @@
         var $el = $("#catId");
         $el.empty(); // remove old options
         $.each(data, function(key,value) {
-          $el.append($("<option></option>")
-             .attr("value", value.id).text(value.category_name));
+
+          if(value.id == cat)
+          {
+            $el.append($("<option></option>")
+             .attr({"value": value.id, "selected": "true"}).text(value.category_name));
+          }
+          else{
+            $el.append($("<option></option>")
+             .attr({"value": value.id}).text(value.category_name));
+          }
+          
         });
 
       }
