@@ -6,6 +6,7 @@ var session = require('express-session');
 var fileUpload = require('express-fileupload');
 var login = require('./routes/loginroutes');
 var config = require('./routes/config.js');
+var imageCache = require('image-cache');
 
 var db = config.database;
 
@@ -24,7 +25,13 @@ app.use(session({secret: 'ssshhhhh'}));
 
 app.set('view engine', 'ejs');
 
-app.use('/static', express.static('static'))
+app.use('/static', express.static('static'));
+
+imageCache.setOptions({
+   compressed: false
+ 
+   // write your custom options here
+});
 
 
 app.use(fileUpload());
