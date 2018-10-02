@@ -438,6 +438,8 @@ So... get on your way!”</p>
           // end img resize
         });
 
+        
+
         $(document).ready(function(){
 
 
@@ -491,7 +493,7 @@ So... get on your way!”</p>
                 console.log(data);
                 $(".all_city").html = "";
               data.forEach(function(item){
-                var Html = '<a href="/city/'+ item.city_name +'?page=1" class="city_pill">'+ item.city_name +'</a>';
+                var Html = '<a href="/city/'+ item.city_name +'" class="city_pill">'+ item.city_name +'</a>';
                 $(".all_city").append(Html);
                  
               });

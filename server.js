@@ -399,13 +399,7 @@ router1.get('/category/:name', function(req, res){
 router1.get('/city/:name', function(req, res){
 
 	var id = req.params.name;
-	var page = (req.query.page - 1) * 20 ;
-
-	console.log("page: "+req.query.page);
-
-	var sql = 'select * from cities, categories, business where cities.city_name = ? and cities.id = business.city_id and categories.id = business.category LIMIT 20 OFFSET '+ page +'; SELECT COUNT(business.id) as total FROM business, cities WHERE cities.city_name = ? and cities.id = business.city_id';
-
-	connection.query(sql,[id, id], function (error, results, fields) {
+	connection.query('select Distinct categories.category_name, categories.cat_img from cities, categories, business where cities.city_name = ? and categories.id = business.category and cities.id = business.city_id;',[id], function (error, results, fields) {
 	  if (error) {
 	    // console.log("error ocurred",error);
 	    res.send({
@@ -413,30 +407,24 @@ router1.get('/city/:name', function(req, res){
 	      "failed":"error ocurred"
 	    })
 	  }else{
-	  	console.log("results: " , results[1][0].total);
-	  	var image;
-
-	  	if(results[0] === undefined || results[0].length == 0)
+	  	
+	  	// console.log(typeof(results));
+	  	var catList = [];
+	  	if(results === undefined || results.length == 0)
 	  	{
-	  		image = '/static/images/back2.jpg';
+	  		
 	  	}
 	  	else{
-	  		image = '/static/images/back2.jpg';
+	  		results.forEach(item => {
+
+	  			catList.push(item.category_name + "-" + item.cat_img);
+	  		});
 	  	}
 
-
-
-	  
-	  
-
-	  	res.render(path.join(__dirname + '/views/category.ejs'), 
-	  		{
-	  			title : id,
-	  			info : results[0],
-	  			background : image,
-	  			totalPage: results[1][0].total
-			});
-
+		res.render(path.join(__dirname + '/views/citypage.ejs'), {
+			title : req.params.name,
+			results: catList
+		});
 		 
 	  }
 
@@ -457,6 +445,57 @@ router1.get('/county/:name/:category', function(req, res){
 	// res.send(id, name);
 
 	var sql = 'select * from cities, county, categories, business where cities.id = business.city_id and categories.category_name = ? and categories.id = business.category and county.county = ? and county.id = business.county_id LIMIT 20 OFFSET '+ page +'; select COUNT(business.id) as total from county, categories, business where categories.category_name = ? and categories.id = business.category and county.county = ? and county.id = business.county_id';
+
+
+	connection.query(sql,[id, name, id, name], function (error, results, fields) {
+	  if (error) {
+	    // console.log("error ocurred",error);
+	    res.send({
+	      "code":400,
+	      "failed":"error ocurred"
+	    })
+	  }else{
+	  	var image;
+
+	  	console.log("final: " + results[0] + " count: " + results[1][0]);
+
+	  	if(results[0] === undefined || results[0].length == 0)
+	  	{
+	  		image = '/static/images/back2.jpg';
+	  	}
+	  	else{
+	  		image = results[0][0].cat_img;
+	  	}
+
+	  	res.render(path.join(__dirname + '/views/category.ejs'), 
+	  		{
+	  			title : id,
+	  			info : results[0],
+	  			background : image,
+	  			totalPage: results[1][0].total
+			});
+
+		 
+	  }
+
+	});
+
+});
+
+
+router1.get('/city/:name/:category', function(req, res){
+
+	var id = req.params.category;
+	var name = req.params.name;
+	// console.log(id, name);
+
+	var page = (req.query.page - 1) * 20 ;
+
+	console.log("page: "+req.query.page);
+
+	// res.send(id, name);
+
+	var sql = 'select * from cities, categories, business where cities.id = business.city_id and categories.category_name = ? and categories.id = business.category and cities.city_name = ? LIMIT 20 OFFSET '+ page +'; select COUNT(business.id) as total from cities, categories, business where categories.category_name = ? and categories.id = business.category and cities.city_name = ? and cities.id = business.city_id';
 
 
 	connection.query(sql,[id, name, id, name], function (error, results, fields) {
