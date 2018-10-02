@@ -315,6 +315,7 @@ address{
     font-weight: bold;
     text-align: center;
     margin: 3px;
+    text-transform: capitalize;
 }
 
 .all_city{
