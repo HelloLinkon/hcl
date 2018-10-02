@@ -463,14 +463,14 @@ So... get on your way!”</p>
 				catData.slice(0,4).forEach(function(item, key){
 
 						let part = item.split('-');
-				  		var catHtml = "<div class='col-sm-3'><div class='category_box' style='background: url(" + part[1] + ") #727957; background-size: cover; background-blend-mode: multiply;'><h1>"+ part[0] +"</h1><a href='/county/"+ getTest +"/"+ part[0].toLowerCase() +"?page=1'><button class='btn_white'>More</button></a></div></div>" ;
+				  		var catHtml = "<div class='col-sm-3'><div class='category_box' style='background: url(" + part[1] + ") #727957; background-size: cover; background-blend-mode: multiply;'><a href='/county/"+ getTest +"/"+ part[0].toLowerCase() +"?page=1'><button class='btn_white'>"+part[0]+"</button></a></div></div>" ;
 				  		$(".category_section #one1").append(catHtml);
 				});
 
 				$(".category_section #two2").html = "";
 				catData.slice(4,8).forEach(function(item, key){
 					    let part = item.split('-');
-				  		var catHtml = "<div class='col-sm-3'><div class='category_box' style='background: url(" + part[1] + ") #727957; background-size: cover; background-blend-mode: multiply;'><h1>"+ part[0] +"</h1><a href='/county/"+ getTest +"/"+ part[0].toLowerCase() +"?page=1'><button class='btn_white'>More</button></a></div></div>" ;
+				  		var catHtml = "<div class='col-sm-3'><div class='category_box' style='background: url(" + part[1] + ") #727957; background-size: cover; background-blend-mode: multiply;'><a href='/county/"+ getTest +"/"+ part[0].toLowerCase() +"?page=1'><button class='btn_white'>"+part[0]+"</button></a></div></div>" ;
 				  		$(".category_section #two2").append(catHtml);
 				});
 
