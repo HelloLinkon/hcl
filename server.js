@@ -408,7 +408,7 @@ router1.get('/city/:name', function(req, res){
 	    })
 	  }else{
 	  	
-	  	// console.log(typeof(results));
+	  	console.log(results);
 	  	var catList = [];
 	  	if(results === undefined || results.length == 0)
 	  	{
