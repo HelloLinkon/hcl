@@ -325,55 +325,99 @@ exports.edit_business = function(req,res){
   console.log("param id " + req.params.id);
   console.log(req.files);
   
-  if (!req.files)
-    return res.status(400).send('No files were uploaded.');
-
-  var file = req.files.image;
-  var img_name=file.name;
+  if (Object.keys(req.files).length === 0)
+  {
 
 
-  var business={
-    "title":req.body.title,
-    "image": "/static/upload/"+img_name,
-    "video":req.body.video,
-    "details":req.body.details,
-    "city_id":req.body.city_id,
-    "county_id":req.body.county_id,
-    "category":req.body.category,
-    "state":req.body.state,
-    "priority":req.body.priority,
-    "website":req.body.website,
-    "phone":req.body.phone,
-    "address":req.body.address
+    var business={
+      "title":req.body.title,
+      "video":req.body.video,
+      "details":req.body.details,
+      "city_id":req.body.city_id,
+      "county_id":req.body.county_id,
+      "category":req.body.category,
+      "state":req.body.state,
+      "priority":req.body.priority,
+      "website":req.body.website,
+      "phone":req.body.phone,
+      "address":req.body.address
+    }
+
+   
+                                   
+                
+
+                connection.query('UPDATE business SET ? WHERE id = ' + req.params.id, business, function (error, results, fields) {
+                if (error) {
+                  console.log("error ocurred",error);
+                  res.send({
+                    "code":400,
+                    "failed":"error ocurred"
+                  })
+                }else{
+                  console.log('The solution is: ', results);
+                  res.redirect('/admin/business');
+                }
+                });
+         
+
+ 
+    
+
+  }
+  else{
+    
+    var file = req.files.image;
+    var img_name=file.name;
+
+
+    var business={
+      "title":req.body.title,
+      "image": "/static/upload/"+img_name,
+      "video":req.body.video,
+      "details":req.body.details,
+      "city_id":req.body.city_id,
+      "county_id":req.body.county_id,
+      "category":req.body.category,
+      "state":req.body.state,
+      "priority":req.body.priority,
+      "website":req.body.website,
+      "phone":req.body.phone,
+      "address":req.body.address
+    }
+
+    if(file.mimetype == "image/jpeg" || file.mimetype == "image/png" || file.mimetype == "image/gif" ){
+                                   
+                file.mv('static/upload/'+file.name, function(err) {
+                               
+                 if (err)
+                  return res.status(500).send(err);
+
+                connection.query('UPDATE business SET ? WHERE id = ' + req.params.id, business, function (error, results, fields) {
+                if (error) {
+                  console.log("error ocurred",error);
+                  res.send({
+                    "code":400,
+                    "failed":"error ocurred"
+                  })
+                }else{
+                  console.log('The solution is: ', results);
+                  res.redirect('/admin/business');
+                }
+                });
+         
+
+      });
+    } 
+    else {
+              message = "This format is not allowed , please upload file with '.png','.gif','.jpg'";
+              res.render('index.ejs',{message: message});
+    }
+
+
   }
 
-  if(file.mimetype == "image/jpeg" || file.mimetype == "image/png" || file.mimetype == "image/gif" ){
-                                 
-              file.mv('static/upload/'+file.name, function(err) {
-                             
-               if (err)
-                return res.status(500).send(err);
-
-              connection.query('UPDATE business SET ? WHERE id = ' + req.params.id, business, function (error, results, fields) {
-              if (error) {
-                console.log("error ocurred",error);
-                res.send({
-                  "code":400,
-                  "failed":"error ocurred"
-                })
-              }else{
-                console.log('The solution is: ', results);
-                res.redirect('/admin/business');
-              }
-              });
-       
-
-    });
-  } 
-  else {
-            message = "This format is not allowed , please upload file with '.png','.gif','.jpg'";
-            res.render('index.ejs',{message: message});
-  }
+  
 
   
 
