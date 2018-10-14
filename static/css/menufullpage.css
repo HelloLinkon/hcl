@@ -4,7 +4,7 @@
 
 .panel {
     position: fixed;
-    left: -100%; /*left or right and the width of your navigation panel*/
+    right:  -100%; /*left or right and the width of your navigation panel*/
     width: 100%; /*should match the above value*/
 }
 
@@ -20,7 +20,7 @@
 }
 
 #menu1{
-  left: -100%;
+  right: -100%;
   background: #6f7c56;
   z-index: 998;
 

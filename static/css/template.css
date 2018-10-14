@@ -160,6 +160,12 @@ address{
     top: 50%;
     transform: translate(-50%,-50%);
     text-transform: capitalize;
+    transition: all 1s;
+}
+
+.btn_white:hover{
+	background: white;
+	color: var(--main-color);
 }
 
 .footer_section{
