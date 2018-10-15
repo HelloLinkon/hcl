@@ -28,6 +28,7 @@
 
 #menu ul{
     margin-top: 50px;
+    list-style: none;
 }
 
 #menu li{
