@@ -316,29 +316,89 @@
         	totalItems = Number(totalItems);
 
         	var pages = Math.ceil(totalItems/20);
-        	// console.log(pages);
+        	console.log(pages);
 
         	$(".pagination").html = "";
-        	// console.log(window.location.pathname);
+
         	var url = window.location.pathname;
         	var noSlash = url.split('/');
-        	// console.log(noSlash);
 
-        	for(var i = 1; i <= pages; i++)
+
+        	function generate_pagination_list(start, end){
+
+        			for(var i = start; i < start+end; i++)
+		        	{
+
+		        		if(noSlash.length === 3)
+		        		{
+							var item = '<li><a href="/category/'+ title +'?page='+ i +'">'+ i +'</a></li>';
+							        		
+		        		}
+		        		else{
+		        			var item = '<li><a href="'+ url +'?page='+ i +'">'+ i +'</a></li>';
+		        		}
+
+		        		$(".pagination").append(item);
+		        		
+		        	}
+        	}
+
+
+        	if(pages == 1)
         	{
 
-        		if(noSlash.length === 3)
+        		generate_pagination_list(1, pages);
+
+        	}
+        	else{
+        		let current_page = window.location.search.split('=');
+        		let page = Number(current_page[1]);
+
+        		$(".pagination").append("<li><a href='' id='bt_lt'>&lt;</a></li>");
+        		generate_pagination_list(page, 1);
+	        	$(".pagination").append("<li><a href='' id='bt_gt'>&gt;</a></li>");
+
+        	}
+
+
+        	$("#bt_gt").click(function(event){
+        		event.preventDefault();
+        		let current_page = window.location.search.split('=');
+        		let page = Number(current_page[1]);
+
+        		if(page < pages)
         		{
-					var item = '<li><a href="/category/'+ title +'?page='+ i +'">'+ i +'</a></li>';
-					        		
+        			var current_url = window.location.href.split('=');
+	        		var new_url = current_url[0]+"="+ (page+1);
+	        		window.location.assign(new_url);
         		}
         		else{
-        			var item = '<li><a href="'+ url +'?page='+ i +'">'+ i +'</a></li>';
+        			console.log("no data");
         		}
 
-        		$(".pagination").append(item);
         		
-        	}
+        	});
+
+        	$("#bt_lt").click(function(event){
+        		event.preventDefault();
+        		let current_page = window.location.search.split('=');
+        		let page = Number(current_page[1]);
+
+        		if(page > 1)
+        		{
+        			var current_url = window.location.href.split('=');
+	        		var new_url = current_url[0]+"="+ (page-1);
+	        		window.location.assign(new_url);
+        		}
+        		else{
+        			console.log("no data");
+        		}
+
+        		
+        	});
+        	
+
+        	
 
 
         	// end
@@ -363,7 +423,7 @@
 			  }
 			});
 
-				ScrollReveal({ reset: true });
+				ScrollReveal();
         		ScrollReveal().reveal('.row', { delay: 400, duration: 1000 });
         });
 
