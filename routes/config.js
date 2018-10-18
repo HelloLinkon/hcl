@@ -2,7 +2,7 @@ module.exports = {
   database:{
 	  "facebook_api_key"      :     "2093327600717245",
 	  "facebook_api_secret"   :     "bdae721a3bb733d44c57bf9b1409061b",
-	  "callback_url"          :     "http://highcountry.life/auth/facebook/callback",
+	  "callback_url"          :     "https://highcountry.life/auth/facebook/callback",
 	  "use_database"          :     "false",
       host     : 'localhost',
 	  user     : 'root',
