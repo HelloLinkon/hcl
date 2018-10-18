@@ -336,6 +336,17 @@ address{
 	color: white;
 }
 
+.profile_name{
+	margin-top: 10px;
+	text-align: center;
+	font-size: 30px;
+	font-weight: bold;
+}
+
+.profile{
+	text-align: center;
+}
+
 
 @media (max-width: 767px) {
 	.business_box {

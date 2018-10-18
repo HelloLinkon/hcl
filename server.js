@@ -7,6 +7,8 @@ var fileUpload = require('express-fileupload');
 var login = require('./routes/loginroutes');
 var config = require('./routes/config.js');
 var imageCache = require('image-cache');
+var passport = require('passport');
+var FacebookStrategy  =     require('passport-facebook').Strategy;
 
 var db = config.database;
 
@@ -18,10 +20,40 @@ var connection = mysql.createConnection({
   multipleStatements: true
 });
 
+
+// Passport session setup.
+passport.serializeUser(function(user, done) {
+  done(null, user);
+});
+passport.deserializeUser(function(obj, done) {
+  done(null, obj);
+});
+// Use the FacebookStrategy within Passport.
+passport.use(new FacebookStrategy({
+    clientID: db.facebook_api_key,
+    clientSecret: db.facebook_api_secret ,
+    callbackURL: db.callback_url
+  },
+  function(accessToken, refreshToken, profile, done) {
+    process.nextTick(function () {
+      //Check whether the User exists or not using profile.id
+      //Further DB code.
+      // return done(null, profile);
+      console.log("Auth done");
+	  done(null, profile);
+    });
+  }
+));
+
+
+
+
 var app = express();
 
-
 app.use(session({secret: 'ssshhhhh'}));
+app.use(passport.initialize());
+app.use(passport.session());
+
 
 app.set('view engine', 'ejs');
 
@@ -357,6 +389,8 @@ router.get("/logout", function(req, res){
 
 router1.get('/category/:name', function(req, res){
 
+	console.log("logged user" + req.user);
+
 	var id = req.params.name;
 	var page = (req.query.page - 1) * 20 ;
 
@@ -393,7 +427,8 @@ router1.get('/category/:name', function(req, res){
 	  			title : id,
 	  			info : results[0],
 	  			background : image,
-	  			totalPage: results[1][0].total
+	  			totalPage: results[1][0].total,
+	  			user : req.user
 			});
 
 		 
@@ -430,7 +465,8 @@ router1.get('/city/:name', function(req, res){
 
 		res.render(path.join(__dirname + '/views/citypage.ejs'), {
 			title : req.params.name,
-			results: catList
+			results: catList,
+			user : req.user
 		});
 		 
 	  }
@@ -479,7 +515,8 @@ router1.get('/county/:name/:category', function(req, res){
 	  			title : id,
 	  			info : results[0],
 	  			background : image,
-	  			totalPage: results[1][0].total
+	  			totalPage: results[1][0].total,
+	  			user : req.user
 			});
 
 		 
@@ -530,7 +567,8 @@ router1.get('/city/:name/:category', function(req, res){
 	  			title : id,
 	  			info : results[0],
 	  			background : image,
-	  			totalPage: results[1][0].total
+	  			totalPage: results[1][0].total,
+	  			user : req.user
 			});
 
 		 
@@ -569,7 +607,8 @@ router1.get('/county/:name', function(req, res){
 
 		res.render(path.join(__dirname + '/views/countypage.ejs'), {
 			title : req.params.name,
-			results: catList
+			results: catList,
+			user : req.user
 		});
 		 
 	  }
@@ -671,10 +710,49 @@ router.get('/', function(req, res) {
 });
 
 router1.get('/', function(req, res) {
-    res.render(path.join(__dirname + '/views/landing.ejs'));
+    res.render(path.join(__dirname + '/views/landing.ejs'), {user: req.user});
     // res.render(path.join(__dirname + '/views/login.ejs'));
     // res.send("hello");
 });
+
+
+// fb login
+
+router1.get('/fb', function(req, res){
+  console.log("req: "+ typeof(req.user));
+  console.log(JSON.stringify(req.user));
+  res.render('index', { user: req.user });
+});
+
+router1.get('/account', ensureAuthenticated, function(req, res){
+  res.render('account', { user: req.user });
+});
+
+//Passport Router
+router1.get('/auth/facebook', passport.authenticate('facebook'));
+router1.get('/auth/facebook/callback',
+  passport.authenticate('facebook', { 
+       successRedirect : '/', 
+       failureRedirect: '/fblogin' 
+  }),
+  function(req, res) {
+    res.redirect('/');
+  });
+
+router1.get('/logout', function(req, res){
+  req.logout();
+  res.redirect('/');
+});
+
+function ensureAuthenticated(req, res, next) {
+  if (req.isAuthenticated()) { return next(); }
+  res.redirect('/')
+}
+
+// end of fb login
+
+
+
 //route to handle user registration
 router.post('/register',login.register);
 router.post('/login',login.login);
