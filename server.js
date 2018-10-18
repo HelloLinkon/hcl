@@ -709,6 +709,12 @@ router.get('/', function(req, res) {
     // res.send("hello");
 });
 
+router1.get('/privacy', function(req, res) {
+    // res.sendFile(path.join(__dirname + '/templates/login.html'));
+    res.render(path.join(__dirname + '/views/privacy.ejs'), {user: req.user});
+    // res.send("hello");
+});
+
 router1.get('/', function(req, res) {
     res.render(path.join(__dirname + '/views/landing.ejs'), {user: req.user});
     // res.render(path.join(__dirname + '/views/login.ejs'));
