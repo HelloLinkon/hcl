@@ -46,6 +46,23 @@
 				<a href="#menu" class="menu-point"><i class="fas fa-bars"></i></a></li>
 			<li>
 				<a href="#menu1" class="menu-point1"><i class="fas fa-map-marker-alt"></i></a></li>
+
+			<% if(!user) { %>
+
+				<li>
+				<a href="#" class="" data-toggle="modal" data-target="#myModal"><i class="fas fa-sign-in-alt"></i></a></li>
+
+			<% } else { %>
+
+				<li>
+					<a href="/account"><i class="fas fa-user"></i></a>
+				</li>
+
+				<li>
+					<a href="/logout"><i class="fas fa-sign-out-alt"></i></a>
+				</li>
+
+			<% } %>
 			
 		</ul>
 	</div>
@@ -71,11 +88,19 @@
 		<div class="col-sm-12">
 			
 			<p class="profile_name">Name: <%= user.displayName %></p>
-			<p class="profile">ID: <%= user.id %></p>
+			<p class="profile"><%= user.id %></p>
 		</div>
 	</div>
 </div>
 <!-- end of category section -->
+
+<br>
+<br>
+<div class="container">
+	<div class="row listOfFav">
+		
+	</div>
+</div>
 
 
 <!-- guide & package section -->
@@ -203,6 +228,11 @@
                 });
 
 
+
+
+
+
+
                 
 
 			    // img mapster resize
@@ -309,6 +339,77 @@
 			  	console.log(error);
 			  }
 			});
+
+
+
+
+			console.log("profile: " + $('.profile').text());
+
+			$.ajax({
+	            method: "GET",
+	            url: "/admin/getFavorite/"+ $('.profile').text(),
+	            dataType: "json",
+	            success: function(data)
+	            {
+	              
+	               
+	                console.log(data);
+
+	                $(".listOfFav").html = "";
+	                
+
+	            	data.forEach(function(info){
+
+
+	            		var html = `<div class="col-sm-12">
+					         			<div class="business_box">
+					         				<div class="business_img" style="background-image: url( ${info.image} ); background-size: cover;">
+					         					
+					         				</div>
+					         				<div class="business_info">
+					         					<h1>${  info.title }> </h1>
+						         				<a href="tel:+1- ${info.phone} "><i class="fas fa-phone"></i> +1-${info.phone}</a>
+								         		
+								         
+
+
+								         		<a href="https://maps.google.com/?q=${info.address} ${info.city_name}" target="_blank">
+								         			<address>
+								         				<i class="fas fa-map-marker-alt"></i>
+								         				<span>${info.address}</span>
+								         				<p style="padding-left: 15px;">${info.city_name} ,${info.state} ${info.priority}</p>
+								         			</address>
+								         		</a>
+								         		
+								         		
+
+								         		<p style="width: 90%; margin: 10px 0;">
+								         			${info.details}
+								         				
+								         		</p>
+
+								         		<a href= "http://${info.Website}" class="btn btn-warning" style="width: 30%; margin-bottom: 20px;">Website</a>
+					         				</div>
+					         			</div>
+					         		</div>`;
+
+
+					     $(".listOfFav").append(html);
+
+
+
+
+	            	});
+
+
+
+
+
+	            },
+	            error: function(error){
+	              console.log(error);
+	            }
+	          });
 
 
 

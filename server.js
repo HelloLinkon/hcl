@@ -407,6 +407,7 @@ router1.get('/category/:name', function(req, res){
 	    })
 	  }else{
 	  	console.log("results: " , results[1][0].total);
+	  	console.log(results[0]);
 	  	var image;
 
 	  	if(results[0] === undefined || results[0].length == 0)
@@ -778,7 +779,9 @@ router.post('/saveBuisnessupload', login.buisnessUpload);
 router.get('/getcounty', login.getcounty);
 router.get('/getcity', login.getcity);
 router.get('/getcategory', login.getcategory);
+router.post('/addFavorite', login.addFavorite);
 router.get('/citiesofcounty/:county', login.citiesofcounty);
+router.get('/getFavorite/:user', login.getFavorite);
 
 app.use('/admin', router);
 app.use('/', router1);
@@ -799,6 +802,12 @@ app.listen(8010);
 //  ADD cat_img varchar(200);
 
 //  ALTER TABLE business AUTO_INCREMENT=0;
+
+// CREATE TABLE favorite (
+// id INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+// business_id INT(11) NOT NULL,
+// user_id varchar(100) NOT NULL
+// );
 
 
 

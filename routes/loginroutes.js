@@ -150,6 +150,47 @@ exports.getcity = function(req,res){
   });
 }
 
+
+
+
+exports.getFavorite = function(req,res){
+
+  var id = req.params.user;
+  connection.query('select * from cities, business, favorite where favorite.user_id = ? and favorite.business_id = business.id and cities.id = business.city_id', id, function (error, results, fields) {
+      if (error) {
+        console.log("error ocurred",error);
+        res.send({
+          "code":400,
+          "failed":"error ocurred"
+        })
+      }else{
+        // console.log(results[0]);
+        res.json(results);
+      }
+  });
+}
+
+exports.addFavorite = function(req,res){
+  
+    var fav={
+    "business_id":req.body.id,
+    "user_id":req.body.user
+    }
+    connection.query('INSERT INTO favorite SET ?',fav, function (error, results, fields) {
+    if (error) {
+      console.log("error ocurred",error);
+      res.send({
+        "code":400,
+        "failed":"error ocurred"
+      })
+    }else{
+      console.log('The solution is: ', results);
+      res.json("yes");
+    }
+    });
+
+}
+
 exports.citiesofcounty = function(req,res){
   var id = req.params.county;
   connection.query('SELECT * FROM cities, county WHERE county.county = ? and cities.county_id = county.id', id, function (error, results, fields) {

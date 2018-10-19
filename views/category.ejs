@@ -71,43 +71,52 @@
 <!-- category section -->
 
 <div class="container">
-	<% info.forEach(function (user) { %>
+	<% info.forEach(function (info) { %>
          
          <div class="buisness_item">
          	<div class="row">
          		<div class="col-sm-12">
          			<div class="business_box">
-         				<div class="business_img" style="background-image: url(<%= user.image %>); background-size: cover;">
+         				<div class="business_img" style="background-image: url(<%= info.image %>); background-size: cover;">
          					
          				</div>
          				<div class="business_info">
-         					<h1><%= user.title %> </h1>
-	         				<a href="tel:+1-<%= user.phone %>"><i class="fas fa-phone"></i> +1-<%= user.phone %></a>
+         					<h1><%= info.title %> </h1>
+	         				<a href="tel:+1-<%= info.phone %>"><i class="fas fa-phone"></i> +1-<%= info.phone %></a>
 			         		
-			         		<a href="#">
-			         			<i class="fas fa-heart"></i> 
-			         			<span>favourite</span>
-			         		</a>
-			         		<a href="https://maps.google.com/?q=<%= user.address %> <%= user.city_name %>" target="_blank">
+			         		<% if(!user) { %>
+			         		
+			         		<% } else { %>
+			         		<div class="btn-fav">
+			         			<a href="#" data-id="<%= info.id %>" data-user="<%= user.id %>">
+				         			<i class="fas fa-heart"></i> 
+				         			<span>Add to Favorites</span>
+				         		</a>
+			         		</div>
+			         			
+			         		<% } %>
+
+
+			         		<a href="https://maps.google.com/?q=<%= info.address %> <%= info.city_name %>" target="_blank">
 			         			<address>
 			         				<i class="fas fa-map-marker-alt"></i>
-			         				<span><%= user.address %></span>
-			         				<p style="padding-left: 15px;"><%= user.city_name %> ,<%= user.state %> <%= user.priority %></p>
+			         				<span><%= info.address %></span>
+			         				<p style="padding-left: 15px;"><%= info.city_name %> ,<%= info.state %> <%= info.priority %></p>
 			         			</address>
 			         		</a>
 			         		
 			         		
 
 			         		<p style="width: 90%; margin: 10px 0;">
-			         			<% if(user.details.length < 320) {%>
-			         			<%= user.details%>
+			         			<% if(info.details.length < 320) {%>
+			         			<%= info.details%>
 			         			<% } else { %>
-			         			<%= user.details.substring(0,320) %>
+			         			<%= info.details.substring(0,320) %>
 			         			<% } %>
 			         				
 			         		</p>
 
-			         		<a href= "http://<%= user.website %>" class="btn btn-warning" style="width: 30%; margin-bottom: 20px;">Website</a>
+			         		<a href= "http://<%= info.website %>" class="btn btn-warning" style="width: 30%; margin-bottom: 20px;">Website</a>
          				</div>
          			</div>
          		</div>
@@ -439,6 +448,42 @@
 
         	
 
+
+        	// end
+
+
+        	// make favourite
+
+        	
+
+        	var div = document.querySelectorAll('.btn-fav a'),
+			result;
+			for (var i = 0; i < div.length; i++) {
+			    result = div[i];
+			    result.addEventListener('click', function() {
+
+
+			    	var a = this.dataset.id;
+			    	var b = this.dataset.user;
+
+			    	var data = {
+			    		'id' : a,
+			    		'user' : b
+			    	}
+					
+			    	$.ajax({
+					  type: "POST",
+					  url: '/admin/addFavorite',
+					  data: data,
+					  success: function(data){
+					  	 console.log(data);
+					  },
+					  dataType: 'json'
+					});
+
+
+				});
+			}
 
         	// end
 
