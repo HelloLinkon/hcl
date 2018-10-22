@@ -156,7 +156,7 @@ exports.getcity = function(req,res){
 exports.getFavorite = function(req,res){
 
   var id = req.params.user;
-  connection.query('select * from cities, business, favorite where favorite.user_id = ? and favorite.business_id = business.id and cities.id = business.city_id', id, function (error, results, fields) {
+  connection.query('select * from cities, business where cities.id = business.city_id and business.users LIKE "%'+ id +'%"', id, function (error, results, fields) {
       if (error) {
         console.log("error ocurred",error);
         res.send({
@@ -176,18 +176,63 @@ exports.addFavorite = function(req,res){
     "business_id":req.body.id,
     "user_id":req.body.user
     }
-    connection.query('INSERT INTO favorite SET ?',fav, function (error, results, fields) {
-    if (error) {
-      console.log("error ocurred",error);
-      res.send({
-        "code":400,
-        "failed":"error ocurred"
-      })
-    }else{
-      console.log('The solution is: ', results);
-      res.json("yes");
-    }
+
+    connection.query("select users from business where id = ? ",req.body.id, function(error, results, fields){
+
+        if(error)
+        {
+          console.log("error ocurred",error);
+        }
+        else{
+
+          console.log('The users are: ', results[0].users);
+          var a;
+          if(results[0].users == null)
+          {
+             
+             a = req.body.user; 
+          }
+          else{
+            a = results[0].users;
+            a = a + "," + req.body.user;
+          }
+
+          
+          
+         
+
+
+          connection.query('UPDATE business SET users = ? WHERE id = ' + req.body.id ,a, function (error, results, fields) {
+            if (error) {
+              console.log("error ocurred",error);
+              res.send({
+                "code":400,
+                "failed":"error ocurred"
+              })
+            }else{
+              console.log('The solution is: ', results);
+              
+            }
+          });
+
+
+        }
+
     });
+
+
+    // connection.query('INSERT INTO favorite SET ?',fav, function (error, results, fields) {
+    // if (error) {
+    //   console.log("error ocurred",error);
+    //   res.send({
+    //     "code":400,
+    //     "failed":"error ocurred"
+    //   })
+    // }else{
+    //   console.log('The solution is: ', results);
+    //   // res.json("yes");
+    // }
+    // });
 
 }
 

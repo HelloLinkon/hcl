@@ -88,10 +88,14 @@
 			         		
 			         		<% } else { %>
 			         		<div class="btn-fav">
+			         			<div></div>
 			         			<a href="#" data-id="<%= info.id %>" data-user="<%= user.id %>">
 				         			<i class="fas fa-heart"></i> 
 				         			<span>Add to Favorites</span>
 				         		</a>
+				         		
+				         		<p class = "users" data-user="<%= user.id %>" style= "display: none;"><%= info.users %></p>
+				         		<div></div>
 			         		</div>
 			         			
 			         		<% } %>
@@ -460,8 +464,9 @@
 			result;
 			for (var i = 0; i < div.length; i++) {
 			    result = div[i];
-			    result.addEventListener('click', function() {
+			    result.addEventListener('click', function(e) {
 
+			    	e.preventDefault();
 
 			    	var a = this.dataset.id;
 			    	var b = this.dataset.user;
@@ -482,10 +487,64 @@
 					});
 
 
+					this.style.display = "none";
+
+					var para = document.createElement("P");                      
+					var t = document.createTextNode("Favorites");      
+					para.appendChild(t);
+					this.previousElementSibling.appendChild(para);
+
+
 				});
 			}
 
         	// end
+
+        	var users_div = document.querySelectorAll('.users'), users_result;
+
+        	for(var i =0; i < users_div.length; i++){
+        		users_result = users_div[i];
+        		// console.log(users_result);
+        		var users = users_result.innerHTML;
+	        	var cur_user = users_result.dataset.user;
+	        	// console.log(users);
+
+	        	var a = users.split(',');
+
+	        	var found = a.find(function(element){
+
+	        		if(element == cur_user)
+	        			return true;
+
+
+	        		return false;
+
+	        	});
+
+	        	if(found != undefined)
+	        	{
+	        		
+
+	        		users_result.previousElementSibling.style.display = "none";
+
+	        		var para = document.createElement("P");                      
+					var t = document.createTextNode("Favorites");      
+					para.appendChild(t);
+
+					users_result.nextElementSibling.appendChild(para);
+
+
+	        	}
+
+        	}
+
+        	
+
+
+
+
+
+
 
 
         	// get category for menu

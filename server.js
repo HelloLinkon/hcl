@@ -790,7 +790,7 @@ app.listen(8010);
 
 
 // ALTER TABLE business
-// ADD county_id int(11); 
+// ADD users text; 
 
 // ALTER TABLE business
 // ADD phone varchar(100);
