@@ -90,7 +90,7 @@ Today is your day!
 Your mountain is waiting,
 So... get on your way!”</p>
 
-<p>― Dr. Seuss, Oh, The Places You'll Go!</p>
+<p class="author">― Dr. Seuss, Oh, The Places You'll Go!</p>
 </div>
 <!-- end of intro text section -->
 
@@ -320,6 +320,37 @@ So... get on your way!”</p>
         });
 
         $(document).ready(function(){
+
+
+
+        	// update qoutes 
+
+        	var qoutes = [
+	        	{'qoute': "You're off to Great Places! Today is your day! Your mountain is waiting, So... get on your way!", 'author' : '- Dr. Seuss, Oh, The Places You\'ll Go!'},
+	        	{'qoute': "The mountains are calling, and I must go.", 'author' : '- John Muir'},
+	        	{'qoute': "Because in the end, you won’t remember the time you spent working in the office or mowing your lawn. Climb that mountain.", 'author' : '- Jack Kerouac'},
+	        	{'qoute': "Over every mountain there is a path, although it may not be seen from the valley.", 'author' : '-Theodore Roethke'},
+	        	{'qoute': "There's a world out there, and you've got to look at both sides of the mountain in your lifetime.", 'author' : '- Bill Janklow'},
+	        	{'qoute': "There is a delight in the hardy life of the open. There are no words that can tell the hidden spirit of the wilderness that can reveal its mystery, its melancholy and its charm. The nation behaves well if it treats the natural resources as assets which it must turn over to the next generation increased and not impaired in value. Conservation means development as much as it does protection.", 'author' : '- Theodore Roosevelt'},
+	        	{'qoute': " It is not the mountain we conquer, but ourselves. ", 'author' : '- Sir Edmund Hillary'},
+	        	{'qoute': "Study nature, love nature, stay close to nature. It will never fail you.", 'author' : '- Frank Lloyd Wright'},
+	        	{'qoute': "The purpose of the Appalachian Trail is threefold:'To walk, to see and to see what you see.'", 'author' : '- Benton MacKaye'}
+        	];
+
+
+        	function changeQoute(){
+
+        		var ranNum = Math.floor(Math.random() * 9 + 1);
+        		// console.log(qoutes[ranNum-1]);
+        		$(".qoute").text(qoutes[ranNum-1].qoute);
+        		$(".author").text(qoutes[ranNum-1].author);
+        	}
+
+        	setInterval(changeQoute , 9000);
+
+        	
+
+        	// end
 
 
         	// get category for menu

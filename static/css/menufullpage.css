@@ -21,7 +21,7 @@
 
 #menu1{
   right: -100%;
-  background: #6f7c56;
+  background: rgba(111, 124, 86, 0.6);
   z-index: 998;
 
 }

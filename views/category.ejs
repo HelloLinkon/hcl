@@ -82,9 +82,7 @@
          				</div>
          				<div class="business_info">
          					<h1><%= info.title %> </h1>
-	         				<a href="tel:+1-<%= info.phone %>"><i class="fas fa-phone"></i> +1-<%= info.phone %></a>
-			         		
-			         		<% if(!user) { %>
+         					<% if(!user) { %>
 			         		
 			         		<% } else { %>
 			         		<div class="btn-fav">
@@ -99,6 +97,9 @@
 			         		</div>
 			         			
 			         		<% } %>
+	         				<a href="tel:<%= info.phone %>"><i class="fas fa-phone"></i> <%= info.phone %></a>
+			         		
+			         		
 
 
 			         		<a href="https://maps.google.com/?q=<%= info.address %> <%= info.city_name %>" target="_blank">
