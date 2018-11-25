@@ -61,7 +61,7 @@ app.use('/static', express.static('static'));
 
 imageCache.setOptions({
    compressed: false
- 
+
    // write your custom options here
 });
 
@@ -282,7 +282,7 @@ router.get('/edit/:id', function(req, res){
 	      "failed":"error ocurred"
 	    })
 	  }else{
-	  	res.render(path.join(__dirname + '/views/edit_business.ejs'), 
+	  	res.render(path.join(__dirname + '/views/edit_business.ejs'),
 	  		{
 	  			id: results[0].id,
 				title: results[0].title,
@@ -314,7 +314,7 @@ router.get('/catedit/:id', function(req, res){
 	      "failed":"error ocurred"
 	    })
 	  }else{
-	  	res.render(path.join(__dirname + '/views/edit_category.ejs'), 
+	  	res.render(path.join(__dirname + '/views/edit_category.ejs'),
 	  		{
 	  			id: results[0].id,
 				category_name: results[0].category_name,
@@ -336,8 +336,8 @@ router.use( function( req, res, next ) {
         req.method = 'DELETE';
         // and set requested url to /user/12
         req.url = req.path;
-    }       
-    next(); 
+    }
+    next();
 });
 
 router.delete('/delete/:id', function(req, res){
@@ -420,10 +420,10 @@ router1.get('/category/:name', function(req, res){
 
 
 
-	  
-	  
 
-	  	res.render(path.join(__dirname + '/views/category.ejs'), 
+
+
+	  	res.render(path.join(__dirname + '/views/category.ejs'),
 	  		{
 	  			title : id,
 	  			info : results[0],
@@ -432,7 +432,7 @@ router1.get('/category/:name', function(req, res){
 	  			user : req.user
 			});
 
-		 
+
 	  }
 
 	});
@@ -450,12 +450,12 @@ router1.get('/city/:name', function(req, res){
 	      "failed":"error ocurred"
 	    })
 	  }else{
-	  	
+
 	  	console.log(results);
 	  	var catList = [];
 	  	if(results === undefined || results.length == 0)
 	  	{
-	  		
+
 	  	}
 	  	else{
 	  		results.forEach(item => {
@@ -469,7 +469,7 @@ router1.get('/city/:name', function(req, res){
 			results: catList,
 			user : req.user
 		});
-		 
+
 	  }
 
 	});
@@ -511,7 +511,7 @@ router1.get('/county/:name/:category', function(req, res){
 	  		image = results[0][0].cat_img;
 	  	}
 
-	  	res.render(path.join(__dirname + '/views/category.ejs'), 
+	  	res.render(path.join(__dirname + '/views/category.ejs'),
 	  		{
 	  			title : id,
 	  			info : results[0],
@@ -520,7 +520,7 @@ router1.get('/county/:name/:category', function(req, res){
 	  			user : req.user
 			});
 
-		 
+
 	  }
 
 	});
@@ -563,7 +563,7 @@ router1.get('/city/:name/:category', function(req, res){
 	  		image = results[0][0].cat_img;
 	  	}
 
-	  	res.render(path.join(__dirname + '/views/category.ejs'), 
+	  	res.render(path.join(__dirname + '/views/category.ejs'),
 	  		{
 	  			title : id,
 	  			info : results[0],
@@ -572,7 +572,7 @@ router1.get('/city/:name/:category', function(req, res){
 	  			user : req.user
 			});
 
-		 
+
 	  }
 
 	});
@@ -592,12 +592,12 @@ router1.get('/county/:name', function(req, res){
 	      "failed":"error ocurred"
 	    })
 	  }else{
-	  	
+
 	  	// console.log(typeof(results));
 	  	var catList = [];
 	  	if(results === undefined || results.length == 0)
 	  	{
-	  		
+
 	  	}
 	  	else{
 	  		results.forEach(item => {
@@ -611,12 +611,12 @@ router1.get('/county/:name', function(req, res){
 			results: catList,
 			user : req.user
 		});
-		 
+
 	  }
 
 	});
 
-	
+
 
 });
 
@@ -738,9 +738,9 @@ router1.get('/account', ensureAuthenticated, function(req, res){
 //Passport Router
 router1.get('/auth/facebook', passport.authenticate('facebook'));
 router1.get('/auth/facebook/callback',
-  passport.authenticate('facebook', { 
-       successRedirect : '/', 
-       failureRedirect: '/fblogin' 
+  passport.authenticate('facebook', {
+       successRedirect : '/',
+       failureRedirect: '/fblogin'
   }),
   function(req, res) {
     res.redirect('/');
@@ -791,10 +791,10 @@ router.get('/category/:name', function(req, res){
 
 
 	  	res.json(results[0]);
-	  
-	  
 
-	  // 	res.render(path.join(__dirname + '/views/category.ejs'), 
+
+
+	  // 	res.render(path.join(__dirname + '/views/category.ejs'),
 	  // 		{
 	  // 			title : id,
 	  // 			info : results[0],
@@ -803,7 +803,188 @@ router.get('/category/:name', function(req, res){
 	  // 			user : req.user
 			// });
 
-		 
+
+	  }
+
+	});
+
+});
+
+router.get('/county/:name/:category', function(req, res){
+
+	var id = req.params.category;
+	var name = req.params.name;
+	// console.log(id, name);
+
+	var page = (req.query.page - 1) * 20 ;
+
+	console.log("page: "+req.query.page);
+
+	// res.send(id, name);
+
+	var sql = 'select * from cities, county, categories, business where cities.id = business.city_id and categories.category_name = ? and categories.id = business.category and county.county = ? and county.id = business.county_id; select COUNT(business.id) as total from county, categories, business where categories.category_name = ? and categories.id = business.category and county.county = ? and county.id = business.county_id';
+
+
+	connection.query(sql,[id, name, id, name], function (error, results, fields) {
+	  if (error) {
+	    // console.log("error ocurred",error);
+	    res.send({
+	      "code":400,
+	      "failed":"error ocurred"
+	    })
+	  }else{
+	  	var image;
+
+	  	console.log("final: " + results[0] + " count: " + results[1][0]);
+
+	  	if(results[0] === undefined || results[0].length == 0)
+	  	{
+	  		image = '/static/images/back2.jpg';
+	  	}
+	  	else{
+	  		image = results[0][0].cat_img;
+	  	}
+
+      res.json(results[0]);
+	  	// res.render(path.join(__dirname + '/views/category.ejs'),
+	  	// 	{
+	  	// 		title : id,
+	  	// 		info : results[0],
+	  	// 		background : image,
+	  	// 		totalPage: results[1][0].total,
+	  	// 		user : req.user
+			// });
+
+
+	  }
+
+	});
+
+});
+
+router.get('/city/:name/:category', function(req, res){
+
+	var id = req.params.category;
+	var name = req.params.name;
+	// console.log(id, name);
+
+	var page = (req.query.page - 1) * 20 ;
+
+	console.log("page: "+req.query.page);
+
+	// res.send(id, name);
+
+	var sql = 'select * from cities, categories, business where cities.id = business.city_id and categories.category_name = ? and categories.id = business.category and cities.city_name = ?; select COUNT(business.id) as total from cities, categories, business where categories.category_name = ? and categories.id = business.category and cities.city_name = ? and cities.id = business.city_id';
+
+
+	connection.query(sql,[id, name, id, name], function (error, results, fields) {
+	  if (error) {
+	    // console.log("error ocurred",error);
+	    res.send({
+	      "code":400,
+	      "failed":"error ocurred"
+	    })
+	  }else{
+	  	var image;
+
+	  	console.log("final: " + results[0] + " count: " + results[1][0]);
+
+	  	if(results[0] === undefined || results[0].length == 0)
+	  	{
+	  		image = '/static/images/back2.jpg';
+	  	}
+	  	else{
+	  		image = results[0][0].cat_img;
+	  	}
+
+      res.json(results[0]);
+	  	// res.render(path.join(__dirname + '/views/category.ejs'),
+	  	// 	{
+	  	// 		title : id,
+	  	// 		info : results[0],
+	  	// 		background : image,
+	  	// 		totalPage: results[1][0].total,
+	  	// 		user : req.user
+			// });
+
+
+	  }
+
+	});
+
+});
+
+router.get('/catUndercounty/:name', function(req, res){
+
+	var id = req.params.name;
+	connection.query('select Distinct categories.id, categories.category_name, categories.cat_img from county, categories, business where county.county = ? and categories.id = business.category and county.id = business.county_id;',[id], function (error, results, fields) {
+	  if (error) {
+	    // console.log("error ocurred",error);
+	    res.send({
+	      "code":400,
+	      "failed":"error ocurred"
+	    })
+	  }else{
+
+	  	// console.log(typeof(results));
+	  	var catList = [];
+	  	if(results === undefined || results.length == 0)
+	  	{
+
+	  	}
+	  	else{
+	  		results.forEach(item => {
+	  			catList.push({id: item.id, category_name: item.category_name, cat_img: item.cat_img});
+	  		});
+	  	}
+
+      res.json(catList);
+
+		// res.render(path.join(__dirname + '/views/countypage.ejs'), {
+		// 	title : req.params.name,
+		// 	results: catList,
+		// 	user : req.user
+		// });
+
+	  }
+
+	});
+
+
+
+});
+
+router.get('/catUndercity/:name', function(req, res){
+
+	var id = req.params.name;
+	connection.query('select Distinct categories.id, categories.category_name, categories.cat_img from cities, categories, business where cities.city_name = ? and categories.id = business.category and cities.id = business.city_id;',[id], function (error, results, fields) {
+	  if (error) {
+	    // console.log("error ocurred",error);
+	    res.send({
+	      "code":400,
+	      "failed":"error ocurred"
+	    })
+	  }else{
+
+	  	console.log(results);
+	  	var catList = [];
+	  	if(results === undefined || results.length == 0)
+	  	{
+
+	  	}
+	  	else{
+	  		results.forEach(item => {
+
+	  			catList.push({id: item.id, category_name: item.category_name, cat_img: item.cat_img});
+	  		});
+	  	}
+      res.json(catList);
+		// res.render(path.join(__dirname + '/views/citypage.ejs'), {
+		// 	title : req.params.name,
+		// 	results: catList,
+		// 	user : req.user
+		// });
+
 	  }
 
 	});
@@ -842,7 +1023,7 @@ app.listen(8010);
 
 
 // ALTER TABLE business
-// ADD users text; 
+// ADD users text;
 
 // ALTER TABLE business
 // ADD phone varchar(100);
@@ -860,14 +1041,3 @@ app.listen(8010);
 // business_id INT(11) NOT NULL,
 // user_id varchar(100) NOT NULL
 // );
-
-
-
-
-
-
-
-
-
-
-

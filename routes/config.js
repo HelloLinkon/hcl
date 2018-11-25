@@ -14,9 +14,3 @@ module.exports = {
 	  database : 'highcountrylife'
   }
 }
-
-
-
-
-
-
