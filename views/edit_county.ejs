@@ -20,10 +20,10 @@
     <div class="col-sm-12">
       <h1>Add New County</h1>
 
-      <form method="POST" action="/admin/county" enctype="multipart/form-data">
+      <form method="POST" action="/admin/countyedit/<%= id %>" enctype="multipart/form-data">
         <div class="form-group">
           <label>County Name:</label>
-          <input type="text" class="form-control" name="county"/>
+          <input type="text" class="form-control" name="county" value="<%= county %>"/>
         
         </div>
         <div class="form-group">

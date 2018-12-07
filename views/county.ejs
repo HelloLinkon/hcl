@@ -25,7 +25,9 @@
               <thead>  
                   <tr>  
                       <th>Id</th>  
-                      <th>County Name</th>  
+                      <th>County Name</th> 
+                      <th>Image</th> 
+                      <th>Action</th>
                   </tr>  
               </thead>  
                <tbody>  
@@ -33,6 +35,10 @@
                   <tr>  
                       <td><%= user.id %></td>  
                       <td><%= user.county %></td>
+                      <td><%= user.cat_img %></td>
+                      <td>
+                        <a href="/admin/countyedit/<%=user.id%>" class="btn btn-primary">edit</a>
+                      </td>
                   </tr>                                   
                <% }) %>
                </tbody>

@@ -97,31 +97,83 @@ exports.login = function(req,res){
 }
 
 exports.county = function(req,res){
+  // console.log("req",req.body);
+  
+  // var county={
+  //   "county":req.body.county,
+    
+  // }
+
+  // console.log("county :" + county);
+  // connection.query('INSERT INTO county SET ?',county, function (error, results, fields) {
+  // if (error) {
+  //   console.log("error ocurred",error);
+  //   res.send({
+  //     "code":400,
+  //     "failed":"error ocurred"
+  //   })
+  // }else{
+  //   console.log('The solution is: ', results);
+  //   res.redirect('/admin/county');
+  // }
+  // });
+
+
   console.log("req",req.body);
+  console.log(req.files);
+
+  if (!req.files)
+    return res.status(400).send('No files were uploaded.');
+
+  var file = req.files.cat_img;
+  var img_name=file.name;
+
+
   
   var county={
     "county":req.body.county,
+    "cat_img": "/static/upload/"+img_name
     
   }
 
-  console.log("county :" + county);
-  connection.query('INSERT INTO county SET ?',county, function (error, results, fields) {
-  if (error) {
-    console.log("error ocurred",error);
-    res.send({
-      "code":400,
-      "failed":"error ocurred"
-    })
-  }else{
-    console.log('The solution is: ', results);
-    res.redirect('/admin/county');
+
+  if(file.mimetype == "image/jpeg" || file.mimetype == "image/png" || file.mimetype == "image/gif" ){
+                                 
+              file.mv('static/upload/'+file.name, function(err) {
+                             
+               if (err)
+               {
+                 console.log("failed to move file");
+                 return res.status(500).send(err);
+               }
+                
+
+              connection.query('INSERT INTO county SET ?',county, function (error, results, fields) {
+              if (error) {
+                console.log("error ocurred",error);
+                res.send({
+                  "code":400,
+                  "failed":"error ocurred"
+                })
+              }else{
+                console.log('The solution is: ', results);
+                res.redirect('/admin/county');
+              }
+              });
+              
+       
+
+    });
+  } 
+  else {
+            message = "This format is not allowed , please upload file with '.png','.gif','.jpg'";
+            res.render('index.ejs',{message: message});
   }
-  });
 }
 
 
 exports.getcounty = function(req,res){
-  connection.query('SELECT * FROM county', function (error, results, fields) {
+  connection.query('SELECT * FROM county order by county', function (error, results, fields) {
       if (error) {
         console.log("error ocurred",error);
         res.send({
@@ -546,6 +598,58 @@ exports.edit_category = function(req,res){
               }else{
                 console.log('The solution is: ', results);
                 res.redirect('/admin/categories');
+              }
+              });
+              
+       
+
+    });
+  } 
+  else {
+            message = "This format is not allowed , please upload file with '.png','.gif','.jpg'";
+            res.render('index.ejs',{message: message});
+  }
+
+
+  
+}
+
+exports.edit_county = function(req,res){
+  console.log("req",req.body);
+  console.log(req.files);
+
+  if (!req.files)
+    return res.status(400).send('No files were uploaded.');
+
+  var file = req.files.cat_img;
+  var img_name=file.name;
+
+
+  
+  var county={
+    "county":req.body.county,
+    "cat_img": "/static/upload/"+img_name
+    
+  }
+
+
+  if(file.mimetype == "image/jpeg" || file.mimetype == "image/png" || file.mimetype == "image/gif" ){
+                                 
+              file.mv('static/upload/'+file.name, function(err) {
+                             
+               if (err)
+                return res.status(500).send(err);
+
+              connection.query('UPDATE county SET ? WHERE id = '+ req.params.id ,county, function (error, results, fields) {
+              if (error) {
+                console.log("error ocurred",error);
+                res.send({
+                  "code":400,
+                  "failed":"error ocurred"
+                })
+              }else{
+                console.log('The solution is: ', results);
+                res.redirect('/admin/county');
               }
               });
               
