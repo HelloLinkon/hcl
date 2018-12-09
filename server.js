@@ -900,7 +900,7 @@ router.get('/city/:name/:category', function(req, res) {
 router.get('/catUndercounty/:name', function(req, res) {
 
   var id = req.params.name;
-  connection.query('select Distinct categories.id, categories.category_name, categories.cat_img from county, categories, business where county.county = ? and categories.id = business.category and county.id = business.county_id;', [id], function(error, results, fields) {
+  connection.query('select Distinct categories.id, categories.category_name, categories.cat_img from county, categories, business where county.county = ? and categories.id = business.category and county.id = business.county_id order by categories.category_name;', [id], function(error, results, fields) {
     if (error) {
       // console.log("error ocurred",error);
       res.send({
@@ -942,7 +942,7 @@ router.get('/catUndercounty/:name', function(req, res) {
 router.get('/catUndercity/:name', function(req, res) {
 
   var id = req.params.name;
-  connection.query('select Distinct categories.id, categories.category_name, categories.cat_img from cities, categories, business where cities.city_name = ? and categories.id = business.category and cities.id = business.city_id;', [id], function(error, results, fields) {
+  connection.query('select Distinct categories.id, categories.category_name, categories.cat_img from cities, categories, business where cities.city_name = ? and categories.id = business.category and cities.id = business.city_id order by categories.category_name;', [id], function(error, results, fields) {
     if (error) {
       // console.log("error ocurred",error);
       res.send({
