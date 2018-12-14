@@ -116,6 +116,18 @@ address{
 	color: white;
 }
 
+.app_section{
+	    background: #727957;
+	        height: 200px;
+    display: flex;
+    align-items: center;
+    color: white;
+}
+
+.app_section h1{
+	margin: 0;
+}
+
 .text_section{
 	margin: 80px 60px;
 	text-align: center;
