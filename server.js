@@ -705,6 +705,90 @@ router1.get('/', function(req, res) {
   // res.send("hello");
 });
 
+router1.get('/search', function(req, res) {
+  res.render(path.join(__dirname + '/views/search.ejs'), {
+    user: req.user
+  });
+  // res.render(path.join(__dirname + '/views/login.ejs'));
+  // res.send("hello");
+});
+
+router1.get('/search/:name', function(req, res) {
+
+  var id = req.params.name;
+  console.log(id);
+  connection.query('select * from business where title like "%'+ id + '%"' , function(error, results, fields) {
+    if (error) {
+      // console.log("error ocurred",error);
+      res.send({
+        "code": 400,
+        "failed": "error ocurred"
+      })
+    } else {
+
+      // console.log(typeof(results));
+      res.json(results);
+      
+
+    }
+
+  });
+
+
+
+});
+
+router1.get('/search/:name/:city/:county/:category', function(req, res) {
+
+  var id = req.params.name;
+  var city = req.params.city;
+  var county = req.params.county;
+  var category = req.params.category;
+
+  var sql = 'select * from business where title like "%'+ id + '%"';
+  console.log(id, city, county, category);
+  if(city != 0)
+  {
+    sql = sql + " and city_id="+city;
+  }
+
+  if(county != 0)
+  {
+    sql = sql + " and county_id="+county;
+  }
+
+  if(category != 0)
+  {
+    sql = sql + " and category="+category;
+  }
+
+  console.log(sql);
+
+
+
+  connection.query(sql , function(error, results, fields) {
+    if (error) {
+      // console.log("error ocurred",error);
+      res.send({
+        "code": 400,
+        "failed": "error ocurred"
+      })
+    } else {
+
+      // console.log(typeof(results));
+      res.json(results);
+      
+
+    }
+
+  });
+
+
+
+});
+
+
+
 
 // fb login
 
