@@ -440,7 +440,7 @@
 				    if(data.length > 0){
 				    	data.forEach(function(item){
 
-				    		var list = '<div class="row"><div class="col-sm-12"><div class="business_box" style="margin: 10px;"><div class="business_img" style="background-image: url('+item.image+'); background-size: cover;"></div><div class="business_info"><h1>'+item.title+'</h1><a href="tel:'+item.phone+'"><i class="fas fa-phone"></i> '+item.phone+'</a><a href="https://maps.google.com/?q='+item.address+'" target="_blank"><address><i class="fas fa-map-marker-alt"></i><span style="padding-left: 15px;">'+ item.address +'</span></address></a><p style="width: 90%; margin: 10px 0;">one</p><a href="'+item.website+'" class="btn btn-warning" style="width: 30%; margin-bottom: 20px;">Website</a></div></div></div></div>';
+				    		var list = '<div class="row"><div class="col-sm-12"><div class="business_box" style="margin: 10px;"><div class="business_img" style="background-image: url('+item.image+'); background-size: cover;"></div><div class="business_info"><h1>'+item.title+'</h1><a href="tel:'+item.phone+'"><i class="fas fa-phone"></i> '+item.phone+'</a><a href="https://maps.google.com/?q='+item.address+'" target="_blank"><address><i class="fas fa-map-marker-alt"></i><span style="padding-left: 15px;">'+ item.address +'</span></address></a><p style="width: 90%; margin: 10px 0;">'+item.details+'</p><a href="'+item.website+'" class="btn btn-warning" style="width: 30%; margin-bottom: 20px;">Website</a></div></div></div></div>';
 				    		
 
 				    		search_result.append(list);
@@ -481,7 +481,7 @@
 				    if(data.length > 0){
 				    	data.forEach(function(item){
 
-				    		var list = '<div class="row"><div class="col-sm-12"><div class="business_box" style="margin: 10px;"><div class="business_img" style="background-image: url('+item.image+'); background-size: cover;"></div><div class="business_info"><h1>'+item.title+'</h1><a href="tel:'+item.phone+'"><i class="fas fa-phone"></i> '+item.phone+'</a><a href="https://maps.google.com/?q='+item.address+'" target="_blank"><address><i class="fas fa-map-marker-alt"></i><span style="padding-left: 15px;">'+ item.address +'</span></address></a><p style="width: 90%; margin: 10px 0;">one</p><a href="'+item.website+'" class="btn btn-warning" style="width: 30%; margin-bottom: 20px;">Website</a></div></div></div></div>';
+				    		var list = '<div class="row"><div class="col-sm-12"><div class="business_box" style="margin: 10px;"><div class="business_img" style="background-image: url('+item.image+'); background-size: cover;"></div><div class="business_info"><h1>'+item.title+'</h1><a href="tel:'+item.phone+'"><i class="fas fa-phone"></i> '+item.phone+'</a><a href="https://maps.google.com/?q='+item.address+'" target="_blank"><address><i class="fas fa-map-marker-alt"></i><span style="padding-left: 15px;">'+ item.address +'</span></address></a><p style="width: 90%; margin: 10px 0;">'+item.details+'</p><a href="'+item.website+'" class="btn btn-warning" style="width: 30%; margin-bottom: 20px;">Website</a></div></div></div></div>';
 				    		
 
 				    		search_result.append(list);
