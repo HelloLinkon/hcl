@@ -15,13 +15,13 @@
 }
 
 #menu{
-    background: rgba(111, 124, 86, 0.6);
+    background: rgba(111, 124, 86, 0.8);
     z-index: 998;
 }
 
 #menu1{
   right: -100%;
-  background: rgba(111, 124, 86, 0.6);
+  background: rgba(111, 124, 86, 0.8);
   z-index: 998;
 
 }
