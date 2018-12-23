@@ -728,7 +728,7 @@ router1.get('/search/:name', function(req, res) {
 
       // console.log(typeof(results));
       res.json(results);
-      
+
 
     }
 
@@ -777,7 +777,7 @@ router1.get('/search/:name/:city/:county/:category', function(req, res) {
 
       // console.log(typeof(results));
       res.json(results);
-      
+
 
     }
 
@@ -926,7 +926,7 @@ router1.get('/remove/:id/:user', function(req, res) {
               console.log('The solution is: ', results);
               // window.location.assign("http://localhost:8010/account");
               res.redirect('/account');
-              
+
             }
           });
 
@@ -935,7 +935,66 @@ router1.get('/remove/:id/:user', function(req, res) {
 
     });
 
- 
+
+
+});
+
+
+router1.get('/removeFav/:id/:user', function(req, res) {
+
+  var id = req.params.id;
+  var user = req.params.user;
+  console.log(id, user);
+
+
+  connection.query("select users from business where id = ? ", id, function(error, results, fields){
+
+        if(error)
+        {
+          console.log("error ocurred",error);
+        }
+        else{
+
+          console.log('The users are: ', results[0].users);
+          var a = results[0].users.split(",");
+
+          console.log(a);
+          var newUser = "";
+
+          for(var i = 0; i < a.length; i++){
+              if(a[i] == user)
+              {
+
+              }
+              else{
+                newUser = newUser + ", "+a[i];
+              }
+          }
+
+          console.log(newUser);
+
+          connection.query('UPDATE business SET users = ? WHERE id = ' + req.params.id , newUser, function (error, results, fields) {
+            if (error) {
+              console.log("error ocurred",error);
+              res.send({
+                "code":400,
+                "failed":"error ocurred"
+              })
+            }else{
+              console.log('The solution is: ', results);
+              // window.location.assign("http://localhost:8010/account");
+              // res.redirect('/account');
+              res.json('{success: "yes" }');
+
+            }
+          });
+
+
+        }
+
+    });
+
+
 
 });
 
