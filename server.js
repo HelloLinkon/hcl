@@ -940,7 +940,7 @@ router1.get('/remove/:id/:user', function(req, res) {
 });
 
 
-router1.get('/removeFav/:id/:user', function(req, res) {
+router1.post('/removeFav/:id/:user', function(req, res) {
 
   var id = req.params.id;
   var user = req.params.user;
