@@ -69,7 +69,7 @@ exports.login = function(req,res){
     // console.log('The solution is: ', results);
     if(results.length >0){
       if(results[0].password == password){
-        
+
         sess = req.session;
         sess.email=req.body.email;
 
@@ -98,10 +98,10 @@ exports.login = function(req,res){
 
 exports.county = function(req,res){
   // console.log("req",req.body);
-  
+
   // var county={
   //   "county":req.body.county,
-    
+
   // }
 
   // console.log("county :" + county);
@@ -129,24 +129,24 @@ exports.county = function(req,res){
   var img_name=file.name;
 
 
-  
+
   var county={
     "county":req.body.county,
     "cat_img": "/static/upload/"+img_name
-    
+
   }
 
 
   if(file.mimetype == "image/jpeg" || file.mimetype == "image/png" || file.mimetype == "image/gif" ){
-                                 
+
               file.mv('static/upload/'+file.name, function(err) {
-                             
+
                if (err)
                {
                  console.log("failed to move file");
                  return res.status(500).send(err);
                }
-                
+
 
               connection.query('INSERT INTO county SET ?',county, function (error, results, fields) {
               if (error) {
@@ -160,11 +160,11 @@ exports.county = function(req,res){
                 res.redirect('/admin/county');
               }
               });
-              
-       
+
+
 
     });
-  } 
+  }
   else {
             message = "This format is not allowed , please upload file with '.png','.gif','.jpg'";
             res.render('index.ejs',{message: message});
@@ -223,7 +223,7 @@ exports.getFavorite = function(req,res){
 }
 
 exports.addFavorite = function(req,res){
-  
+
     var fav={
     "business_id":req.body.id,
     "user_id":req.body.user
@@ -241,17 +241,17 @@ exports.addFavorite = function(req,res){
           var a;
           if(results[0].users == null)
           {
-             
-             a = req.body.user; 
+
+             a = req.body.user;
           }
           else{
             a = results[0].users;
             a = a + "," + req.body.user;
           }
 
-          
-          
-         
+
+
+
 
 
           connection.query('UPDATE business SET users = ? WHERE id = ' + req.body.id ,a, function (error, results, fields) {
@@ -263,7 +263,7 @@ exports.addFavorite = function(req,res){
               })
             }else{
               console.log('The solution is: ', results);
-              
+
             }
           });
 
@@ -322,7 +322,7 @@ exports.getcategory = function(req,res){
 
 exports.city = function(req,res){
   console.log("req",req.body);
-  
+
   var city={
     "city_name":req.body.city_name,
     "county_id":req.body.county_id
@@ -352,24 +352,24 @@ exports.category = function(req,res){
   var img_name=file.name;
 
 
-  
+
   var category={
     "category_name":req.body.category_name,
     "cat_img": "/static/upload/"+img_name
-    
+
   }
 
 
   if(file.mimetype == "image/jpeg" || file.mimetype == "image/png" || file.mimetype == "image/gif" ){
-                                 
+
               file.mv('static/upload/'+file.name, function(err) {
-                             
+
                if (err)
                {
                  console.log("failed to move file");
                  return res.status(500).send(err);
                }
-                
+
 
               connection.query('INSERT INTO categories SET ?',category, function (error, results, fields) {
               if (error) {
@@ -383,25 +383,25 @@ exports.category = function(req,res){
                 res.redirect('/admin/categories');
               }
               });
-              
-       
+
+
 
     });
-  } 
+  }
   else {
             message = "This format is not allowed , please upload file with '.png','.gif','.jpg'";
             res.render('index.ejs',{message: message});
   }
 
 
-  
+
 }
 
 
 exports.business = function(req,res){
   console.log("req",req.body);
   console.log(req.files);
-  
+
   if (!req.files)
     return res.status(400).send('No files were uploaded.');
 
@@ -426,9 +426,9 @@ exports.business = function(req,res){
   }
 
   if(file.mimetype == "image/jpeg" || file.mimetype == "image/png" || file.mimetype == "image/gif" ){
-                                 
+
               file.mv('static/upload/'+file.name, function(err) {
-                             
+
                if (err)
                 return res.status(500).send(err);
 
@@ -444,16 +444,16 @@ exports.business = function(req,res){
                 res.redirect('/admin/business');
               }
               });
-       
+
 
     });
-  } 
+  }
   else {
             message = "This format is not allowed , please upload file with '.png','.gif','.jpg'";
             res.render('index.ejs',{message: message});
   }
 
-  
+
 
 }
 
@@ -462,7 +462,7 @@ exports.edit_business = function(req,res){
   console.log("req",req.body);
   console.log("param id " + req.params.id);
   console.log(req.files);
-  
+
   if (Object.keys(req.files).length === 0)
   {
 
@@ -481,9 +481,9 @@ exports.edit_business = function(req,res){
       "address":req.body.address
     }
 
-   
-                                   
-                
+
+
+
 
                 connection.query('UPDATE business SET ? WHERE id = ' + req.params.id, business, function (error, results, fields) {
                 if (error) {
@@ -497,14 +497,14 @@ exports.edit_business = function(req,res){
                   res.redirect('/admin/business');
                 }
                 });
-         
 
- 
-    
+
+
+
 
   }
   else{
-    
+
     var file = req.files.image;
     var img_name=file.name;
 
@@ -525,9 +525,9 @@ exports.edit_business = function(req,res){
     }
 
     if(file.mimetype == "image/jpeg" || file.mimetype == "image/png" || file.mimetype == "image/gif" ){
-                                   
+
                 file.mv('static/upload/'+file.name, function(err) {
-                               
+
                  if (err)
                   return res.status(500).send(err);
 
@@ -543,10 +543,10 @@ exports.edit_business = function(req,res){
                   res.redirect('/admin/business');
                 }
                 });
-         
+
 
       });
-    } 
+    }
     else {
               message = "This format is not allowed , please upload file with '.png','.gif','.jpg'";
               res.render('index.ejs',{message: message});
@@ -555,9 +555,9 @@ exports.edit_business = function(req,res){
 
   }
 
-  
 
-  
+
+
 
 }
 
@@ -573,18 +573,18 @@ exports.edit_category = function(req,res){
   var img_name=file.name;
 
 
-  
+
   var category={
     "category_name":req.body.category_name,
     "cat_img": "/static/upload/"+img_name
-    
+
   }
 
 
   if(file.mimetype == "image/jpeg" || file.mimetype == "image/png" || file.mimetype == "image/gif" ){
-                                 
+
               file.mv('static/upload/'+file.name, function(err) {
-                             
+
                if (err)
                 return res.status(500).send(err);
 
@@ -600,18 +600,18 @@ exports.edit_category = function(req,res){
                 res.redirect('/admin/categories');
               }
               });
-              
-       
+
+
 
     });
-  } 
+  }
   else {
             message = "This format is not allowed , please upload file with '.png','.gif','.jpg'";
             res.render('index.ejs',{message: message});
   }
 
 
-  
+
 }
 
 exports.edit_county = function(req,res){
@@ -625,18 +625,18 @@ exports.edit_county = function(req,res){
   var img_name=file.name;
 
 
-  
+
   var county={
     "county":req.body.county,
     "cat_img": "/static/upload/"+img_name
-    
+
   }
 
 
   if(file.mimetype == "image/jpeg" || file.mimetype == "image/png" || file.mimetype == "image/gif" ){
-                                 
+
               file.mv('static/upload/'+file.name, function(err) {
-                             
+
                if (err)
                 return res.status(500).send(err);
 
@@ -652,18 +652,18 @@ exports.edit_county = function(req,res){
                 res.redirect('/admin/county');
               }
               });
-              
-       
+
+
 
     });
-  } 
+  }
   else {
             message = "This format is not allowed , please upload file with '.png','.gif','.jpg'";
             res.render('index.ejs',{message: message});
   }
 
 
-  
+
 }
 
 
@@ -671,10 +671,10 @@ exports.countyUpload = function(req, res){
 
   if (!req.files)
     return res.status(400).send('No files were uploaded.');
- 
+
   // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
   let sampleFile = req.files.sampleFile;
- 
+
   // Use the mv() method to place the file somewhere on your server
   sampleFile.mv('static/upload/'+ sampleFile.name, function(err) {
     if (err)
@@ -686,7 +686,7 @@ exports.countyUpload = function(req, res){
              console.log(data[0]);
              var county={
                 "county": data[0],
-                
+
               }
 
               console.log("county :" + county);
@@ -705,7 +705,7 @@ exports.countyUpload = function(req, res){
         .on("end", function(){
              console.log("done");
         });
-     
+
       stream.pipe(csvStream);
 
       res.redirect('/admin/county');
@@ -719,10 +719,10 @@ exports.cityUpload = function(req, res){
 
   if (!req.files)
     return res.status(400).send('No files were uploaded.');
- 
+
   // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
   let sampleFile = req.files.sampleFile;
- 
+
   // Use the mv() method to place the file somewhere on your server
   sampleFile.mv('static/upload/'+ sampleFile.name, function(err) {
     if (err)
@@ -752,7 +752,7 @@ exports.cityUpload = function(req, res){
         .on("end", function(){
              console.log("done");
         });
-     
+
       stream.pipe(csvStream);
 
       res.redirect('/admin/city');
@@ -766,10 +766,10 @@ exports.categoryUpload = function(req, res){
 
   if (!req.files)
     return res.status(400).send('No files were uploaded.');
- 
+
   // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
   let sampleFile = req.files.sampleFile;
- 
+
   // Use the mv() method to place the file somewhere on your server
   sampleFile.mv('static/upload/'+ sampleFile.name, function(err) {
     if (err)
@@ -782,7 +782,7 @@ exports.categoryUpload = function(req, res){
              var category={
                 "category_name": data[0],
                 "cat_img": "/static/upload/"+ data[1]
-                
+
               }
 
               connection.query('INSERT INTO categories SET ?',category, function (error, results, fields) {
@@ -800,7 +800,7 @@ exports.categoryUpload = function(req, res){
         .on("end", function(){
              console.log("done");
         });
-     
+
       stream.pipe(csvStream);
 
       res.redirect('/admin/categories');
@@ -813,10 +813,10 @@ exports.buisnessUpload = function(req, res){
 
   if (!req.files)
     return res.status(400).send('No files were uploaded.');
- 
+
   // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
   let sampleFile = req.files.sampleFile;
- 
+
   // Use the mv() method to place the file somewhere on your server
   sampleFile.mv('static/upload/'+ sampleFile.name, function(err) {
     if (err)
@@ -857,7 +857,7 @@ exports.buisnessUpload = function(req, res){
         .on("end", function(){
              console.log("done");
         });
-     
+
       stream.pipe(csvStream);
 
       res.redirect('/admin/business');
@@ -867,10 +867,8 @@ exports.buisnessUpload = function(req, res){
 }
 
 
-
-
-
-
-
-
-
+exports.getFavorite = function(req,res){
+  var id = req.params.id;
+  var user = req.params.user;
+  console.log(id, user);
+}
