@@ -939,7 +939,6 @@ router1.get('/remove/:id/:user', function(req, res) {
 
 });
 
-
 router.get('/county/:name/:category', function(req, res) {
 
   var id = req.params.category;
@@ -1137,7 +1136,6 @@ router.post('/saveCountyupload', login.countyUpload);
 router.post('/saveCityupload', login.cityUpload);
 router.post('/saveCategoryupload', login.categoryUpload);
 router.post('/saveBuisnessupload', login.buisnessUpload);
-router.post('/removeFav/:id/:user', login.removeFav);
 
 
 
