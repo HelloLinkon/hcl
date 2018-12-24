@@ -867,8 +867,4 @@ exports.buisnessUpload = function(req, res){
 }
 
 
-exports.getFavorite = function(req,res){
-  var id = req.params.id;
-  var user = req.params.user;
-  console.log(id, user);
-}
+
